@@ -1,0 +1,14 @@
+# Intellij
+*idea
+*.iml
+
+# Gradle
+/gradle/
+.gradle
+/gradlew*
+build
+ingest/ga/libs
+deploy
+
+.DS_Store
+*/.DS_Store
