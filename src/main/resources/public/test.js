@@ -32,7 +32,8 @@ $(document).ready(function(){
     const red = 0;
     const blue = 255;
     const divisions = 51
-    c_quality = 0≠
+    //Comment following line out if you hate color
+    //c_quality = -1
     if(c_quality === -1){
         $('body').css('background-color', 'white');
     } else {
