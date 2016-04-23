@@ -68,3 +68,4 @@ $(document).ready(function(){
         //$('body').css('background-color', 'rgb(shown_red, 0, shown_blue)');
     }
 })
+
