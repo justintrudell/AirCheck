@@ -16,15 +16,21 @@ import static spark.Spark.post;
 public class Entry {
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
-        map.put("message", "Hello, World!");
+        map.put("message", "");
 
         get("/", (req, res) -> new ModelAndView(map, "hello"), new JadeTemplateEngine());
 
-        testMonoxide();
+        // Route for forms
+        get("/data", (request, response) -> {
+            System.out.println(request.body());
 
-        post("/test", (req, res) -> testMonoxide());
-
-
+            double latitude = Double.parseDouble(request.queryParams("latitude"));
+            double longitude = Double.parseDouble(request.queryParams("longitude"));
+            System.out.println(latitude);
+            System.out.println(longitude);
+            Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
+            return mon != null ? mon.getValue() : "not found!";
+        });
     }
 
     public static String testMonoxide(){
