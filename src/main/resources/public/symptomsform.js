@@ -6,7 +6,6 @@ function initMap() {
     center: {lat: 37.775, lng: -122.434},
   });
 
-
 }
 
 function toggleHeatmap() {
@@ -53,6 +52,7 @@ $(document).ready(function(){
                     ret.push({
                         location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight']
                     })
+                console.log("visualizing");
                 new google.maps.visualization.HeatmapLayer({
                         data: ret,
                         map: map,
