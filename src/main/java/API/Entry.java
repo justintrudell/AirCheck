@@ -1,5 +1,6 @@
 package API;
 
+import DAO.DataAccessObject;
 import Helpers.AirCheckConstants;
 import Models.Monoxide;
 import Models.UserFeelings;
@@ -72,6 +73,12 @@ public class Entry {
             response.redirect("/");
             return null;
         });
+
+        get("/UserView", (request, response) -> {
+            String res = DataAccessObject.processUsers();
+            map.put("res", res);
+            return new ModelAndView(map, "user_view");
+        }, new JadeTemplateEngine());
 
     }
 }
