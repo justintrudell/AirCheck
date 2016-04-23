@@ -3,7 +3,7 @@ html(lang="en")
   body
     h1(align='center') Fill out your symptoms below from 1 to 10:
     br
-    form(align='center', action='symptoms', method='get')
+    form(align='center', action='symptomsentry', method='get')
         h3 Cough level:
         select(name='coughLevel')
             option(value='0') 0
@@ -62,13 +62,17 @@ html(lang="en")
         br
         h3 Is your nose obstructed?
         select(name='noseBlock')
-                    option(value='yes') Yes
-                    option(value='no') No
+                    option(value='1') Yes
+                    option(value='0') No
         br
         h3 Are your eyes itchy?
         select(name='itchyEyes')
-                    option(value='yes') Yes
-                    option(value='no') No
+                    option(value='1') Yes
+                    option(value='0') No
+        h4 Latitude:
+        input(type='text', name='latitude')
+        h4 Longitude:
+        input(type='text', name='longitude')
         br
         br
         input(type='submit')

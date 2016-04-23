@@ -53,10 +53,14 @@ public class Entry {
             int wheezing = Integer.valueOf(request.queryParams("wheezing"));
             int sneezing = Integer.valueOf(request.queryParams("sneezing"));
             boolean noseBlock = Integer.valueOf(request.queryParams("noseBlock")) == 1;
-            boolean itcyEyes = Integer.valueOf(request.queryParams("itchyEyes")) == 1;
-            double latitude = Double.parseDouble(request.queryParams("latitude"));
-            double longitude = Double.parseDouble(request.queryParams("longitude"));
-            UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock, itcyEyes, latitude, longitude);
+            boolean itchyEyes = Integer.valueOf(request.queryParams("itchyEyes")) == 1;
+            double latitude = 0;
+            if(request.queryParams("latitude") != null && !request.queryParams(("latitude")).isEmpty())
+                latitude = Double.parseDouble(request.queryParams("latitude"));
+            double longitude = 0;
+            if(request.queryParams("longitude") != null && !request.queryParams(("longitude")).isEmpty())
+                latitude = Double.parseDouble(request.queryParams("longitude"));
+            UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock, itchyEyes, latitude, longitude);
             map.put("message", "Thanks for submitting!");
             response.redirect("/");
             return null;
