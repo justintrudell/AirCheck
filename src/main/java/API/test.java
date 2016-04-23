@@ -1,5 +1,7 @@
 package API;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -11,15 +13,7 @@ import java.io.IOException;
  */
 public class test {
     static OkHttpClient client = new OkHttpClient();
-    public static void main(String[] args){
-        try{
-            String test = run("http://api.openweathermap.org/pollution/v1/co/0.0,10.0/2016-03-01Z.json?appid=2e5380c813086bfa4cff625b78e8996b");
-            System.out.println(test);
-        } catch (Exception e){
-            return;
-        }
-
-    }
+    ≠≠
 
     static String run(String url) throws IOException{
         Request request = new Request.Builder().url(url).build();
