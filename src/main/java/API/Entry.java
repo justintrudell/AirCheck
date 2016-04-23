@@ -120,5 +120,10 @@ public class Entry {
             return DataAccessObject.processUsersJson();
         }, new JsonTransformer());
 
+        get("/cityJSON", "application/json", (request, response) -> {
+            response.type("application/json");
+            return DataAccessObject.processCities();
+        }, new JsonTransformer());
+
     }
 }

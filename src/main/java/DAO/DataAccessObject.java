@@ -88,4 +88,23 @@ public class DataAccessObject {
         stmt.close();
         c.close();
     }
+
+    public static JsonArray processCities() throws Exception {
+        String sql = "SELECT * FROM Cities";
+        c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
+        stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        JsonArray jarr = new JsonArray();
+        while(rs.next()){
+            JsonObject jobj = new JsonObject();
+            jobj.addProperty("longitude", rs.getString("longitude"));
+            jobj.addProperty("latitude", rs.getString("latitude"));
+            jobj.addProperty("weight", rs.getString("intensity"));
+            jarr.add(jobj);
+        }
+        rs.close();
+        stmt.close();
+        c.close();
+        return jarr;
+    }
 }
