@@ -19,8 +19,9 @@ public class GetMonoxide {
     static OkHttpClient client = new OkHttpClient();
 
     public static Monoxide GetMonoxide(double longitude, double latitude) throws Exception {
+        // Casting lat and lon to int so we can match data better
         String test = CallMonoxideAPI(String.format("%s/pollution/v1/co/%s,%s/current.json?appid=%s",
-                AirCheckConstants.ApiBaseUrl, latitude, longitude, AirCheckConstants.ApiToken));
+                AirCheckConstants.ApiBaseUrl, (int)latitude, (int)longitude, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
         System.out.println(test);
         JsonObject result = p.parse(test).getAsJsonObject();
