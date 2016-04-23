@@ -64,4 +64,13 @@ public class Entry {
 
     }
 
+    public static void testMonoxide(){
+        try{
+            Monoxide m = GetMonoxide.GetMonoxide(0.0, 10.0);
+            System.out.println(m.getPrecision());
+        } catch(Exception e){
+            return;
+        }
+    }
+
 }
