@@ -14,6 +14,8 @@ window.onload = function(){
         function displayLocation(position) {
           var latitude = Math.round(position.coords.latitude);
           var longitude = Math.round(position.coords.longitude);
+          document.getElementById('latitude').value = latitude;
+          document.getElementById('longitude').value = longitude;
           var request = new XMLHttpRequest();
 
           var method = 'GET';
@@ -68,3 +70,4 @@ $(document).ready(function(){
         //$('body').css('background-color', 'rgb(shown_red, 0, shown_blue)');
     }
 })
+

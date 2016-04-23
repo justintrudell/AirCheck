@@ -5,7 +5,12 @@ html(lang="en")
       link(href='bootstrap.min.css', rel='stylesheet')
       link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
   body
-    h1(align='center') Fill out your symptoms below from 1 to 10:
+  div(align='center')
+    strong
+    h1(style='font-weight:bold;') Symptoms Datasheet
+    br
+    br
+    h2(align='center') Fill out your symptoms below from 1 to 10:
     br
     form(align='center', action='symptomsentry', method='get')
         h3 Cough level:
@@ -75,8 +80,11 @@ html(lang="en")
                     option(value='0') No
         br
         br
+        input(type='submit')
+        br
         h4 City:
         input(type='text', name='city')
         br
         br
-        input(type='submit')
+
+    script(type='text/javascript', src='test.js')
