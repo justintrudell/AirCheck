@@ -27,10 +27,16 @@ public class Entry {
         // Route for forms
         get("/data", (request, response) -> {
             response.redirect("/");
+            // Getting humidity value
+            String city = request.queryParams("city");
+            Weather weather = GetWeather.getWeather(city);
+            String humidity = weather != null ? String.valueOf(weather.getHumidity()) : AirCheckConstants.ErrorMsg;
+            map.put("humidity", humidity);
+
 
             // Getting CO VMR value
-            double latitude = Double.parseDouble(request.queryParams("latitude"));
-            double longitude = Double.parseDouble(request.queryParams("longitude"));
+            double latitude = weather.getLatitude();
+            double longitude = weather.getLongitude();
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
@@ -40,10 +46,6 @@ public class Entry {
             map.put("quality", quality);
             map.put("color_quality", quality);
 
-            // Getting humidity value
-            Weather weather = GetWeather.getWeather(longitude, latitude);
-            String humidity = weather != null ? String.valueOf(weather.getHumidity()) : AirCheckConstants.ErrorMsg;
-            map.put("humidity", humidity);
             return null;
         });
 
