@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 /**
  * Created by vishalkuo on 2016-04-22.
@@ -18,19 +19,22 @@ public class Entry {
         map.put("message", "Hello, World!");
 
         get("/", (req, res) -> new ModelAndView(map, "hello"), new JadeTemplateEngine());
+
         testMonoxide();
+
+        post("/test", (req, res) -> testMonoxide());
 
 
     }
 
-    public static void testMonoxide(){
+    public static String testMonoxide(){
+        Monoxide m;
         try{
-            Monoxide m = GetMonoxide.GetMonoxide(0.0, 10.0);
-            System.out.println(m.getPrecision());
+            m = GetMonoxide.GetMonoxide(0.0, 10.0);
         } catch(Exception e){
-            return;
+            return "";
         }
-
+        return String.valueOf(m.getValue());
     }
 
 }
