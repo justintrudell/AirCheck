@@ -37,7 +37,7 @@ public class Entry {
             map.replace("message", "hey");
         return null;});
 
-        
+
     }
 
     public static void testMonoxide(){
