@@ -1,5 +1,7 @@
 package DAO;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -21,24 +23,36 @@ public class DataAccessObject {
         stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
         JsonArray jarr = new JsonArray();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         while(rs.next()){
             JsonObject jobj = new JsonObject();
-            jobj.addProperty("coughLevel", rs.getString("cough_level"));
-            jobj.addProperty("breathlevel", rs.getString("breath"));
-            jobj.addProperty("wheezing", rs.getString("wheezing"));
-            jobj.addProperty("sneezing", rs.getString("sneezing"));
-            jobj.addProperty("nose_block", rs.getBoolean("nose_block"));
-            jobj.addProperty("itchy_eyes", rs.getBoolean("itchy_eyes"));
-            jobj.addProperty("city", rs.getString("city"));
             jobj.addProperty("longitude", rs.getString("longitude"));
             jobj.addProperty("latitude", rs.getString("latitude"));
-            jobj.addProperty("intensity", rs.getString("intensity"));
+            jobj.addProperty("weight", rs.getString("intensity"));
             jarr.add(jobj);
         }
         rs.close();
         stmt.close();
         c.close();
-        System.out.println(jarr);
-        return jarr.toString();
+        return gson.toJson(jarr);
+    }
+
+    public static JsonArray processUsersJson() throws Exception{
+        String sql = "SELECT * FROM Users";
+        c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
+        stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        JsonArray jarr = new JsonArray();
+        while(rs.next()){
+            JsonObject jobj = new JsonObject();
+            jobj.addProperty("longitude", rs.getString("longitude"));
+            jobj.addProperty("latitude", rs.getString("latitude"));
+            jobj.addProperty("weight", rs.getString("intensity"));
+            jarr.add(jobj);
+        }
+        rs.close();
+        stmt.close();
+        c.close();
+        return jarr;
     }
 }

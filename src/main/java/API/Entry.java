@@ -115,5 +115,10 @@ public class Entry {
             return null;
         });
 
+        get("/userJSON", "application/json", (request, response) -> {
+            response.type("application/json");
+            return DataAccessObject.processUsersJson();
+        }, new JsonTransformer());
+
     }
 }

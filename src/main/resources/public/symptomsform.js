@@ -6,11 +6,7 @@ function initMap() {
     center: {lat: 37.775, lng: -122.434},
   });
 
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
-    map: map,
-    radius: 60
-  });
+
 }
 
 function toggleHeatmap() {
@@ -45,10 +41,30 @@ function changeOpacity() {
   heatmap.set('opacity', heatmap.get('opacity') ? null : 0.4);
 }
 
-// Heatmap data: 500 Points
-function getPoints() {
-  return [
-    {location: new google.maps.LatLng(37.782, -122.447), weight: 9000},
 
-  ];
-}
+
+$(document).ready(function(){
+
+      function test(){
+        $.ajax("http://localhost:4567/userJSON", {
+            success: function(data) {
+                ret = []
+                for (i in data){
+                    ret.push({
+                        location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight']
+                    })
+                new google.maps.visualization.HeatmapLayer({
+                        data: ret,
+                        map: map,
+                        radius: 60
+                      });
+                }
+            }, error: function(){
+                console.log("error")
+            }
+        })
+      }
+
+      test()
+})
+
