@@ -37,6 +37,9 @@ public class Entry {
             map.replace("message", "hey");
         return null;});
 
+        get("/symptomsform", (req, res) -> new ModelAndView(new HashMap<>(), "symptomsform"), new JadeTemplateEngine());
+
+
 
     }
 
