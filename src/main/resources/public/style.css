@@ -1,6 +1,9 @@
 #map {
     width: 800px;
     height: 400px;
+}
+
+.status-wrapper {
     margin: auto;
 }
 
@@ -23,5 +26,5 @@
 }
 
 #air-quality-status-wrapper {
-    padding: 10px 50px 10px 50px;
+    padding: 10px 50px 10px 30px;
 }
