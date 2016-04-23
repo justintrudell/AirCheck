@@ -45,7 +45,7 @@ function changeOpacity() {
 $(document).ready(function(){
 
       function test(){
-        $.ajax("http://localhost:4567/userJSON", {
+        $.ajax("http://localhost:4567/cityJSON", {
             success: function(data) {
                 ret = []
                 for (i in data){
