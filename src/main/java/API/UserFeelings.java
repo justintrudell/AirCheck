@@ -10,14 +10,19 @@ public class UserFeelings {
     private int sneezing;
     private boolean noseBlock;
     private boolean itchyEyes;
+    private double latitude;
+    private double longitude;
 
-    public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes) {
+    public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes, double latitude, double longitude) {
         this.coughLevel = coughLevel;
         this.howIsBreath = howIsBreath;
         this.wheezing = wheezing;
         this.sneezing = sneezing;
         this.noseBlock = noseBlock;
         this.itchyEyes = itchyEyes;
+        this.latitude = latitude;
+
+        this.longitude = longitude;
     }
 
     public int getCoughLevel() {
@@ -42,5 +47,13 @@ public class UserFeelings {
 
     public boolean isItchyEyes() {
         return itchyEyes;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }
