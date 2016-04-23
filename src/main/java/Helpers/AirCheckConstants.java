@@ -12,4 +12,5 @@ public class AirCheckConstants {
     public static final String MonoxidePressure = "pressure";
     public static final String MonoxideValue = "value";
     public static final String ErrorMsg = "not found!";
+    public static final String[] seriousSnynonyms = { "severe", "acute", "bad", "serious", "painful"};
 }

@@ -12,6 +12,8 @@ import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import twitter4j.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -148,7 +150,7 @@ public class Entry {
                 }
                 else {
                     if(status.getText().contains("#")) {
-                        String[] vars = status.getText().split(" ");
+                        String[] vars = status.getText().toLowerCase().split(" ");
                         for(int i = 0; i < vars.length; i++) {
                             if(vars[i].contains("#")) {
                                 city = vars[i].replace("#","");
@@ -165,7 +167,119 @@ public class Entry {
                         }
                     }
                 }
-                System.out.println(String.format("%s LONG %s LAT %s CITY", _longitude, _latitude, city));
+                ArrayList<String> fields = new ArrayList<>(Arrays.asList(status.getText().toLowerCase().split(" ")));
+                int coughLevel = 0;
+                if(fields.contains("cough")) {
+                    coughLevel = 5;
+                    int i = fields.indexOf("cough");
+                    if(i > 0)
+                    {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i - 1).contains(s)) {
+                                fields.remove(i - 1);
+                                coughLevel += 5;
+                                break;
+                            }
+                        }
+                    }
+                    if(coughLevel <= 5 && i < fields.size()) {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i + 1).contains(s)) {
+                                fields.remove(i + 1);
+                                coughLevel += 5;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                int howIsBreath = 0;
+                if(fields.contains("breath")) {
+                    howIsBreath = 5;
+                    int i = fields.indexOf("breath");
+                    if(i > 0)
+                    {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i - 1).contains(s)) {
+                                fields.remove(i - 1);
+                                howIsBreath += 5;
+                                break;
+                            }
+                        }
+                    }
+                    if(howIsBreath <= 5 && i < fields.size()) {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i + 1).contains(s)) {
+                                fields.remove(i + 1);
+                                howIsBreath += 5;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                int wheezing = 0;
+                if(fields.contains("wheezing")) {
+                    wheezing = 5;
+                    int i = fields.indexOf("wheezing");
+                    if(i > 0)
+                    {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i - 1).contains(s)) {
+                                fields.remove(i - 1);
+                                wheezing += 5;
+                                break;
+                            }
+                        }
+                    }
+                    if(wheezing <= 5 && i < fields.size()) {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i + 1).contains(s)) {
+                                fields.remove(i + 1);
+                                wheezing += 5;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                int sneezing = 0;
+                if(fields.contains("sneezing")) {
+                    sneezing = 5;
+                    int i = fields.indexOf("sneezing");
+                    if(i > 0)
+                    {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i - 1).contains(s)) {
+                                fields.remove(i - 1);
+                                sneezing += 5;
+                                break;
+                            }
+                        }
+                    }
+                    if(sneezing <= 5 && i < fields.size()) {
+                        for(String s : AirCheckConstants.seriousSnynonyms) {
+                            if(fields.get(i + 1).contains(s)) {
+                                fields.remove(i + 1);
+                                sneezing += 5;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                boolean noseBlock = false;
+                if(fields.contains("nose") && fields.contains("block")) {
+                    noseBlock = true;
+                }
+
+                boolean itchyEyes = false;
+                if(fields.contains("itchy") && fields.contains("eyes")) {
+                    itchyEyes = true;
+                }
+                UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing,
+                        noseBlock, itchyEyes, city, _longitude, _latitude);
+                feels.Save();
             }
 
             @Override
