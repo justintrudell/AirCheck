@@ -10,10 +10,12 @@ import Models.Weather;
 import com.google.gson.JsonObject;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
+import twitter4j.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static API.GetLocation.CoordsToCity;
 import static spark.Spark.get;
 import static spark.Spark.staticFileLocation;
 
@@ -21,10 +23,10 @@ import static spark.Spark.staticFileLocation;
  * Created by vishalkuo on 2016-04-22.
  */
 public class Entry {
-    public static double _longitude;
-    public static double _latitude;
 
     public static void main(String[] args) throws Exception {
+        RunTwitterStream();
+
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
         staticFileLocation("/public");
@@ -125,5 +127,78 @@ public class Entry {
             return DataAccessObject.processCities();
         }, new JsonTransformer());
 
+    }
+
+    private static void RunTwitterStream() throws Exception {
+        TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
+        StatusListener listener = new StatusListener() {
+            @Override
+            public void onStatus(Status status) {
+                String city = "";
+                double _longitude = 0;
+                double _latitude = 0;
+                if(status.getGeoLocation() != null) {
+                    try {
+                        _longitude = status.getGeoLocation().getLongitude();
+                        _latitude = status.getGeoLocation().getLatitude();
+                        city = CoordsToCity(status.getGeoLocation().getLongitude(), status.getGeoLocation().getLatitude());
+                    }
+                    catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    if(status.getText().contains("#")) {
+                        String[] vars = status.getText().split(" ");
+                        for(int i = 0; i < vars.length; i++) {
+                            if(vars[i].contains("#")) {
+                                city = vars[i].replace("#","");
+                                try {
+                                    Weather w = GetWeather.getWeather(city);
+                                    _latitude = w.getLatitude();
+                                    _longitude = w.getLongitude();
+                                }
+                                catch(Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+                System.out.println(String.format("%s LONG %s LAT %s CITY", _longitude, _latitude, city));
+            }
+
+            @Override
+            public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+                //System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+            }
+
+            @Override
+            public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
+                System.out.println("Got track limitation notice:" + numberOfLimitedStatuses);
+            }
+
+            @Override
+            public void onScrubGeo(long userId, long upToStatusId) {
+                System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+            }
+
+            @Override
+            public void onStallWarning(StallWarning warning) {
+                System.out.println("Got stall warning:" + warning);
+            }
+
+            @Override
+            public void onException(Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+
+        twitterStream.addListener(listener);
+        FilterQuery filter = new FilterQuery();
+        String[] keywordsArray = { "@AircheckAppsTO" };
+        filter.track(keywordsArray);
+        twitterStream.filter(filter);
     }
 }
