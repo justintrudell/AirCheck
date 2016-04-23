@@ -267,7 +267,5 @@ window.onload = function(){
 //        };
 //  }
 //}
-
-var map;
 }
 
