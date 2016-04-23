@@ -55,4 +55,37 @@ public class DataAccessObject {
         c.close();
         return jarr;
     }
+
+    public static void createUsers() throws Exception{
+        String sql = "CREATE TABLE IF NOT EXISTS Users (" +
+                "cough_level int, " +
+                "breath int, " +
+                "wheezing int, " +
+                "sneezing int, " +
+                "nose_block boolean, " +
+                "itchy_eyes boolean, " +
+                "city text, " +
+                "longitude double, " +
+                "latitude double, " +
+                "intensity double)";
+        c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
+        stmt = c.createStatement();
+        stmt.executeUpdate(sql);
+        stmt.close();
+        c.close();
+    }
+
+    public static void createCities() throws Exception {
+        String sql = "CREATE TABLE IF NOT EXISTS Cities (" +
+                "city text PRIMARY KEY, " +
+                "latitude double, " +
+                "longitude double, " +
+                "intensity double)";
+
+        c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
+        stmt = c.createStatement();
+        stmt.executeUpdate(sql);
+        stmt.close();
+        c.close();
+    }
 }
