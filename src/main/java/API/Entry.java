@@ -22,15 +22,15 @@ public class Entry {
 
         // Route for forms
         get("/data", (request, response) -> {
+            response.redirect("/");
             System.out.println(request.body());
-
             double latitude = Double.parseDouble(request.queryParams("latitude"));
             double longitude = Double.parseDouble(request.queryParams("longitude"));
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
             String rvm = mon != null ? String.valueOf(mon.getValue()) : "not found!";
-            map.put("message", rvm);
+            map.replace("message", rvm);
             return null;
         });
 
@@ -39,7 +39,7 @@ public class Entry {
             map.replace("message", "hey");
         return null;});
 
-        get("/symptomsform", (req, res) -> new ModelAndView(new HashMap<>(), "symptomsform"), new JadeTemplateEngine());
+        //get("/symptomsform", (req, res) -> new ModelAndView(new HashMap<>(), "symptomsform"), new JadeTemplateEngine());
 
 
 
