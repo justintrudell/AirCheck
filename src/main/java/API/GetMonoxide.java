@@ -20,7 +20,7 @@ public class GetMonoxide {
 
     public static Monoxide GetMonoxide(double longitude, double latitude) throws Exception {
         String test = CallMonoxideAPI(String.format("%s/pollution/v1/co/%s,%s/current.json?appid=%s",
-                AirCheckConstants.ApiBaseUrl, longitude, latitude, AirCheckConstants.ApiToken));
+                AirCheckConstants.ApiBaseUrl, latitude, longitude, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
         System.out.println(test);
         JsonObject result = p.parse(test).getAsJsonObject();
