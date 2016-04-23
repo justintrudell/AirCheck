@@ -80,7 +80,7 @@ public class DataAccessObject {
                 "city text PRIMARY KEY, " +
                 "latitude double, " +
                 "longitude double, " +
-                "intensity double)";
+                "intensity double DEFAULT 0)";
 
         c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
         stmt = c.createStatement();

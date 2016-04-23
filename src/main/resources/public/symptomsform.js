@@ -50,7 +50,7 @@ $(document).ready(function(){
                 ret = []
                 for (i in data){
                     ret.push({
-                        location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight']
+                        location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight'] / 100
                     })
                 console.log("visualizing");
                 new google.maps.visualization.HeatmapLayer({

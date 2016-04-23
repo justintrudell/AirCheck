@@ -77,7 +77,6 @@ public class Entry {
         }, new JadeTemplateEngine());
 
         get("/symptomsentry", (request, response) -> {
-            System.out.println(request.body());
             int coughLevel = Integer.valueOf(request.queryParams("coughLevel"));
             int howIsBreath = Integer.valueOf(request.queryParams("howIsBreath"));
             int wheezing = Integer.valueOf(request.queryParams("wheezing"));

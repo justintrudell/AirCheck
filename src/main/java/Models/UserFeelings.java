@@ -40,23 +40,10 @@ public class UserFeelings {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
-
+            stmt = c.createStatement();
             int _noseBlock = this.noseBlock ? 1 : 0;
             int _itchyEyes = this.itchyEyes ? 1 : 0;
-            stmt = c.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS Users (" +
-                    "cough_level int, " +
-                    "breath int, " +
-                    "wheezing int, " +
-                    "sneezing int, " +
-                    "nose_block boolean, " +
-                    "itchy_eyes boolean, " +
-                    "city text, " +
-                    "longitude double, " +
-                    "latitude double, " +
-                    "intensity double)";
-            stmt.executeUpdate(sql);
-            sql = "INSERT INTO Users values(" +
+            String sql = "INSERT INTO Users values(" +
                     this.coughLevel + "," +
                     this.howIsBreath + "," +
                     this.wheezing + "," +
@@ -68,6 +55,15 @@ public class UserFeelings {
                     new DecimalFormat("#.###").format(this.latitude) + "," +
                     this.intensity +
                     ")";
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            sql = "INSERT OR REPLACE INTO Cities Values("
+                    + "\""+ this.city +"\", "
+                    + this.latitude + ", "
+                    + this.longitude + ","
+                    + "(select intensity from Cities where city = \""+ this.city + "\") +"
+                    +  this.intensity + ")";
+            System.out.println(sql);
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();

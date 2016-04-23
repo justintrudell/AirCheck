@@ -19,19 +19,7 @@ html(lang="en")
         h4.air-quality Air Quality:
         #air-quality-status.air-quality
     div(id='map')
-    form(align='center', action='data', method='get')
-        h4 Current City:
-        input(id='city', type='text', name='city')
-        br
-        br
-        h4 Longitude:
-            input(id='longitude', disabled)
-        br
-        br
-        h4 Latitude:
-            input(id='latitude', disabled)
-        br
-        br
+
     h4(id='air-quality', align='center') Air Quality:
     br
     br
@@ -61,10 +49,18 @@ html(lang="en")
       br
       br
       form(align='center', action='symptomsentry', method='get')
-
+          h4 Current City:
+          input(id='city', type='text', name='city')
+          br
+          h4 Latitude:
+          input(id='latitude', name='latitude')
+          br
+          h4 Longitude:
+          input(id='longitude', name='longitude')
           br
           br
-          h2(align='center') Fill out your symptoms below from 1 to 10:
+          br
+          h2(align='center') Fill out your symptoms below:
           br
           span(padding-right='20')
           h4 Cough level:
