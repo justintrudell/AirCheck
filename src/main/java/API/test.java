@@ -12,7 +12,6 @@ public class test {
        Connection c = null;
        Statement stmt = null;
        try {
-           Class.forName("org.sqlite.JDBC");
            c = DriverManager.getConnection("jdbc:sqlite:test.db");
 
            stmt = c.createStatement();
