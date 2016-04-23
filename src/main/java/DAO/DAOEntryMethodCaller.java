@@ -8,7 +8,7 @@ import Helpers.DataGeneration;
 public class DAOEntryMethodCaller {
     public static void main(String[] args){
         try{
-            new DataGeneration().GenerateData(10);
+            new DataGeneration().GenerateData(2);
         }catch (Exception e){
             System.out.println("lol");
         }

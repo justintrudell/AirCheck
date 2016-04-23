@@ -39,7 +39,20 @@ public class DataGeneration {
                 double latitude = coord.getLatitude();
                 GetRandomLongAndLat();
                 stmt = c.createStatement();
-                String sql = "INSERT INTO Users values(" +
+                String sql = "CREATE TABLE IF NOT EXISTS Users (" +
+                        "cough_level int, " +
+                        "breath int, " +
+                        "wheezing int, " +
+                        "sneezing int, " +
+                        "nose_block boolean, " +
+                        "itchy_eyes boolean, " +
+                        "city text, " +
+                        "longitude double, " +
+                        "latitude double, " +
+                        "intensity double)";
+                stmt.executeUpdate(sql);
+                stmt = c.createStatement();
+                sql = "INSERT INTO Users values(" +
                         coughLevel + "," +
                         howIsBreath + "," +
                         wheezing + "," +
