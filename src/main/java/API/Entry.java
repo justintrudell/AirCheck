@@ -43,10 +43,10 @@ public class Entry {
             Weather weather = GetWeather.getWeather(city);
             String humidity = weather != null ? String.valueOf(weather.getHumidity()) : AirCheckConstants.ErrorMsg;
 
-
             // Getting CO VMR value
             double latitude = weather.getLatitude();
             double longitude = weather.getLongitude();
+            weather.save(city, Double.valueOf(request.queryParams("latitude")), Double.valueOf(request.queryParams("longitude")));
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
             // Multiply by a million to get parts per milllion
             String quality = mon != null ? Monoxide.ppmToQuality(mon.getValue() * 1000000) : AirCheckConstants.ErrorMsg;

@@ -42,7 +42,7 @@ function changeOpacity() {
 
 $(document).ready(function(){
 
-      function test(){
+      function getOp(){
         $.ajax("http://localhost:4567/cityJSON", {
             success: function(data) {
                 ret = []
@@ -50,8 +50,6 @@ $(document).ready(function(){
                     ret.push({
                         location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight'] / 100
                     })
-                console.log("visualizing");
-
                 }
                 new google.maps.visualization.HeatmapLayer({
                                         data: ret,
@@ -59,21 +57,35 @@ $(document).ready(function(){
                                         radius: 60,
                                         maxIntensity: 1.0
                                       });
-                new google.maps.visualization.HeatmapLayer({
-                                        data: ret,
-                                        map: map,
-                                        radius: 100,
-                                        maxIntensity: 0.4,
-                                        gradient: grad
-                                      });
-
             }, error: function(){
                 console.log("error")
             }
         })
       }
 
-      test()
+      getOp()
+
+      function getWeather(){
+        $.ajax("http://localhost:4567/getWeather", {
+            success: function(data){
+                ret = []
+                for (i in data){
+                    ret.push({
+                        location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight'] / 100
+                    })
+                }
+                new google.maps.visualization.HeatmapLayer({
+                                        data: ret,
+                                        map: map,
+                                        radius: 60,
+                                        maxIntensity: 1.0
+                                      });
+            }, error: function(){
+                console.log("Error")
+            }
+
+        })
+      }
 
 
     $('#get_started').click(function(){
