@@ -1,7 +1,7 @@
 package API;
 
 import Helpers.AirCheckConstants;
-import Models.Monoxide;
+import Models.Weather;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import okhttp3.OkHttpClient;
@@ -10,31 +10,32 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-public class GetMonoxide {
-
+/**
+ * Created by jerry on 2016-04-22.
+ */
+public class GetWeather {
     public static void main(String[] args) throws Exception {
-        Monoxide monoxide = GetMonoxide(0.0, 10.0);
-        System.out.println(monoxide.getValue());
+        Weather weather = getWeather(0.0, 10.0);
+        System.out.println(weather.getHumidity());
     }
+
     static OkHttpClient client = new OkHttpClient();
 
-    public static Monoxide GetMonoxide(double longitude, double latitude) throws Exception {
-        String test = CallMonoxideAPI(String.format("%s/pollution/v1/co/%s,%s/current.json?appid=%s",
+    public static Weather getWeather(double longitude, double latitude) throws Exception {
+        String test = CallWeatherAPI(String.format("%s/data/2.5/weather?lat=%s&lon=%s&appid=%s",
                 AirCheckConstants.ApiBaseUrl, longitude, latitude, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
         JsonObject result = p.parse(test).getAsJsonObject();
         if(result.has("message") && result.get("message").getAsString().equals("not found")) {
             return null;
         }
-        JsonObject monoxideObject = p.parse(test).getAsJsonObject().getAsJsonArray("data").get(0).getAsJsonObject();
-        Monoxide monoxide = new Monoxide(monoxideObject.get(AirCheckConstants.MonoxidePrecision).getAsDouble(),
-                monoxideObject.get(AirCheckConstants.MonoxidePressure).getAsDouble(), monoxideObject.get(AirCheckConstants.MonoxideValue).getAsDouble());
-        return monoxide;
+        JsonObject weatherObject = result.getAsJsonObject("main");
+        Weather weather = new Weather(weatherObject.get("temp").getAsDouble(),
+                weatherObject.get("humidity").getAsDouble(), weatherObject.get("pressure").getAsDouble());
+        return weather;
     }
 
-
-
-    static String CallMonoxideAPI(String url) throws IOException{
+    static String CallWeatherAPI(String url) throws IOException {
         Request request = new Request.Builder().url(url).build();
         Response response = client.newCall(request).execute();
         return response.body().string();

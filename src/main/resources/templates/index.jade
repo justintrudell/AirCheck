@@ -4,17 +4,22 @@ html(lang="en")
     h1(align='center') AirCheck
     br
     form(align='center', action='data', method='get')
-        h4 Longitude:
-        input(type='text', name='longitude')
         h4 Latitude:
         input(type='text', name='latitude')
+        h4 Longitude:
+        input(type='text', name='longitude')
         br
         br
         input(type='submit')
     br
     br
-    h4(align='center') Volume Mixing Ratio: #{message}
+    h4(align='center') Volume Mixing Ratio: #{vmr}
+    br
+    br
+    br
+    br
+    h4(align='center') Humidity: #{humidity}
     br
     br
     form(align='center', action='symptomsform', method='get')
-        input(type='submit', text='Go to form')
+        input(type='submit', value='Go to form')

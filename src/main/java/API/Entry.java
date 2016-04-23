@@ -1,6 +1,9 @@
 package API;
 
+import Helpers.AirCheckConstants;
 import Models.Monoxide;
+import Models.Weather;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 
@@ -15,21 +18,26 @@ import static spark.Spark.get;
 public class Entry {
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
-        map.put("message", "");
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
         // Route for forms
         get("/data", (request, response) -> {
             response.redirect("/");
-            System.out.println(request.body());
+
+            // Getting CO RVM value
             double latitude = Double.parseDouble(request.queryParams("latitude"));
             double longitude = Double.parseDouble(request.queryParams("longitude"));
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
-            String rvm = mon != null ? String.valueOf(mon.getValue()) : "not found!";
-            map.replace("message", rvm);
+            String vmr = mon != null ? String.valueOf(mon.getValue()) : AirCheckConstants.ErrorMsg;
+            map.put("vmr", vmr);
+
+            // Getting humidity value
+            Weather weather = GetWeather.getWeather(longitude, latitude);
+            String humidity = weather != null ? String.valueOf(weather.getHumidity()) : AirCheckConstants.ErrorMsg;
+            map.put("humidity", humidity);
             return null;
         });
 
@@ -45,15 +53,28 @@ public class Entry {
             int wheezing = Integer.valueOf(request.queryParams("wheezing"));
             int sneezing = Integer.valueOf(request.queryParams("sneezing"));
             boolean noseBlock = Integer.valueOf(request.queryParams("noseBlock")) == 1;
-            boolean itcyEyes = Integer.valueOf(request.queryParams("itchyEyes")) == 1;
-            double latitude = Double.parseDouble(request.queryParams("latitude"));
-            double longitude = Double.parseDouble(request.queryParams("longitude"));
-            UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock, itcyEyes, latitude, longitude);
+            boolean itchyEyes = Integer.valueOf(request.queryParams("itchyEyes")) == 1;
+            double latitude = 0;
+            if(request.queryParams("latitude") != null && !request.queryParams(("latitude")).isEmpty())
+                latitude = Double.parseDouble(request.queryParams("latitude"));
+            double longitude = 0;
+            if(request.queryParams("longitude") != null && !request.queryParams(("longitude")).isEmpty())
+                latitude = Double.parseDouble(request.queryParams("longitude"));
+            UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock, itchyEyes, latitude, longitude);
             map.put("message", "Thanks for submitting!");
             response.redirect("/");
             return null;
         });
 
+    }
+
+    public static void testMonoxide(){
+        try{
+            Monoxide m = GetMonoxide.GetMonoxide(0.0, 10.0);
+            System.out.println(m.getPrecision());
+        } catch(Exception e){
+            return;
+        }
     }
 
 }
