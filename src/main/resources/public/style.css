@@ -5,7 +5,7 @@
 }
 
 .status-wrapper {
-    width: 900px;
+    width: 100%;
     height: 500px;
     margin: auto;
 }
@@ -30,4 +30,22 @@
 
 #air-quality-status-wrapper {
     padding: 10px 50px 10px 50px;
+}
+
+
+#my_typeform {
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    height: 600px;
+}
+
+.12u {
+    height: 550px;
+}
+
+.special {
+    height: 500px;
 }
