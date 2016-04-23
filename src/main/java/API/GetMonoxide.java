@@ -22,11 +22,12 @@ public class GetMonoxide {
         String test = CallMonoxideAPI(String.format("%s/pollution/v1/co/%s,%s/current.json?appid=%s",
                 AirCheckConstants.ApiBaseUrl, longitude, latitude, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
+        System.out.println(test);
         JsonObject result = p.parse(test).getAsJsonObject();
-        if(result.has("message") && result.get("message").getAsString().equals("not found")) {
+        if(!result.has("data")) {
             return null;
         }
-        JsonObject monoxideObject = p.parse(test).getAsJsonObject().getAsJsonArray("data").get(0).getAsJsonObject();
+        JsonObject monoxideObject = result.getAsJsonArray("data").get(0).getAsJsonObject();
         Monoxide monoxide = new Monoxide(monoxideObject.get(AirCheckConstants.MonoxidePrecision).getAsDouble(),
                 monoxideObject.get(AirCheckConstants.MonoxidePressure).getAsDouble(), monoxideObject.get(AirCheckConstants.MonoxideValue).getAsDouble());
         return monoxide;
