@@ -30,7 +30,7 @@ html(lang="en")
         br
         br
         h4 Latitude:
-            input(id='latitude', name='longitude')
+            input(id='latitude', name='latitude')
         br
         br
         div(id='map')
@@ -52,14 +52,10 @@ html(lang="en")
             input(type='range', name='sneezing', min='0', max='10')
         br
         h4 Is your nose obstructed?
-            select(name='noseBlock')
-                        option(value='1') Yes
-                        option(value='0') No
+            input(type='checkbox', name='noseBlock')
         br
         h4 Are your eyes itchy?
-            select(name='itchyEyes')
-                        option(value='1') Yes
-                        option(value='0') No
+            input(type='checkbox', name='itchyEyes')
         br
         br
         br

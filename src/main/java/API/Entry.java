@@ -2,6 +2,7 @@ package API;
 
 import DAO.DataAccessObject;
 import Helpers.AirCheckConstants;
+import Helpers.DataGeneration;
 import Models.Monoxide;
 import Models.UserFeelings;
 import Models.Weather;
@@ -78,8 +79,14 @@ public class Entry {
             int howIsBreath = Integer.valueOf(request.queryParams("howIsBreath"));
             int wheezing = Integer.valueOf(request.queryParams("wheezing"));
             int sneezing = Integer.valueOf(request.queryParams("sneezing"));
-            boolean noseBlock = Integer.valueOf(request.queryParams("noseBlock")) == 1;
-            boolean itchyEyes = Integer.valueOf(request.queryParams("itchyEyes")) == 1;
+            boolean noseBlock = false;
+            boolean itchyEyes = false;
+            if(request.queryParams("noseBlock") != null) {
+                noseBlock = request.queryParams("noseBlock").equals("on");
+            }
+            if(request.queryParams("itchyEyes") != null) {
+                itchyEyes = request.queryParams("itchyEyes").equals("on");
+            }
             String city = request.queryParams("city");
             double longitude = 0;
             if(request.queryParams("longitude") != null && !request.queryParams("longitude").isEmpty())
@@ -100,6 +107,13 @@ public class Entry {
             map.put("res", res);
             return new ModelAndView(map, "user_view");
         }, new JadeTemplateEngine());
+
+        get("/generateUsers", (request, response) -> {
+            response.redirect("/");
+            DataGeneration g = new DataGeneration();
+            g.GenerateData(1000);
+            return null;
+        });
 
     }
 }
