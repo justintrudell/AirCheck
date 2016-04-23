@@ -3,6 +3,7 @@ package Models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 
 /**
  * Created by vishalkuo on 2016-04-22.
@@ -60,14 +61,14 @@ public class UserFeelings {
                     _noseBlock + "," +
                     _itchyEyes + ",'" +
                     this.city + "'," +
-                    this.longitude + "," +
-                    this.latitude +
+                    new DecimalFormat("#.###").format(this.longitude) + "," +
+                    new DecimalFormat("#.###").format(this.latitude) +
                     ")";
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
     }

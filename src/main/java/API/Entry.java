@@ -2,10 +2,10 @@ package API;
 
 import DAO.DataAccessObject;
 import Helpers.AirCheckConstants;
+import Helpers.DataGeneration;
 import Models.Monoxide;
 import Models.UserFeelings;
 import Models.Weather;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
@@ -27,7 +27,7 @@ public class Entry {
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
         staticFileLocation("/public");
-        GetUser.ProcessUserFeelings();
+        //AirCheckUser.GetListOfCoordinates();
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
@@ -108,6 +108,13 @@ public class Entry {
             map.put("res", res);
             return new ModelAndView(map, "user_view");
         }, new JadeTemplateEngine());
+
+        get("/generateUsers", (request, response) -> {
+            response.redirect("/");
+            DataGeneration g = new DataGeneration();
+            g.GenerateData(1000);
+            return null;
+        });
 
     }
 }
