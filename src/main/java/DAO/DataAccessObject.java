@@ -33,6 +33,9 @@ public class DataAccessObject {
             jobj.addProperty("longitude", rs.getDouble("longitude"));
             jarr.add(jobj);
         }
+        rs.close();
+        stmt.close();
+        c.close();
         System.out.println(jarr);
         return jarr.toString();
     }

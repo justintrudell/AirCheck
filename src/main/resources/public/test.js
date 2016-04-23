@@ -53,18 +53,19 @@ window.onload = function(){
 };
 
 $(document).ready(function(){
-    const red = 0;
-    const blue = 255;
-    const divisions = 51
+    const red = 100;
+    const blue = 230;
+    const divisions = 23
     //Comment following line out if you hate color
     //c_quality = -1
+    c_quality = 4
     if(c_quality === -1){
         $('body').css('background-color', 'white');
     } else {
         c_quality++
-        shown_red = divisions * c_quality
-        shown_blue = 255 - shown_red
-        $('body').css('background-color', 'rgb(' + shown_red + ',0,'+ shown_blue+')');
+        shown_red =  red + divisions * c_quality
+        shown_blue = blue - shown_red
+        $('body').css('background-color', 'rgb(' + shown_red + ',180,'+ 100+')');
         //$('body').css('background-color', 'rgb(shown_red, 0, shown_blue)');
     }
 })
