@@ -17,7 +17,7 @@ public class Entry {
         Map<String, String> map = new HashMap<>();
         map.put("message", "");
 
-
+        get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
         get("/", (req, res) -> new ModelAndView(map, "hello"), new JadeTemplateEngine());
 
         // Route for forms
@@ -31,6 +31,13 @@ public class Entry {
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
             return mon != null ? mon.getValue() : "not found!";
         });
+
+        get("/data", (req, res) -> {
+            res.redirect("/");
+            map.replace("message", "hey");
+        return null;});
+
+        
     }
 
     public static void testMonoxide(){
