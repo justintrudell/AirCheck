@@ -20,6 +20,7 @@ function setBgColor(c_quality) {
     $("#air-quality-status").fadeOut(200);
     //Comment following line out if you hate color
     //c_quality = -1
+    console.log(c_quality);
     if(c_quality === -1){
         $('#air-quality-status').css('background-color', 'white');
     } else {
@@ -75,7 +76,6 @@ function displayLocation(position) {
                 //alert(types);
                 if(types=="locality,political"){
                     //alert(addressComponents[i].long_name); // this should be your city, depending on where you are
-                    document.getElementById("city").value = addressComponents[i].long_name;
                     try {
                         $('#city').val(addressComponents[i].long_name);
                         city = addressComponents[i].long_name;
@@ -92,9 +92,7 @@ function displayLocation(position) {
                           },
                           type: "GET"
                         }).done(function(data) {
-                            $('#air-quality').text("Air Quality:"  + data.quality);
-                            $('#humidity').text("Humitidy: " + data.humidity);
-                            setBgColor(data.color_quality);
+                            setBgColor(data.quality);
                         });
                     }
                 }

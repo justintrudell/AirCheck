@@ -53,7 +53,6 @@ public class Entry {
 
             ret.addProperty("humidity", humidity);
             ret.addProperty("quality", quality);
-            ret.addProperty("color_quality", quality);
 
             return ret;
         });
