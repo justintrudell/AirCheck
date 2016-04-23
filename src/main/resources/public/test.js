@@ -58,7 +58,6 @@ $(document).ready(function(){
     const divisions = 23
     //Comment following line out if you hate color
     //c_quality = -1
-    c_quality = 4
     if(c_quality === -1){
         $('body').css('background-color', 'white');
     } else {
