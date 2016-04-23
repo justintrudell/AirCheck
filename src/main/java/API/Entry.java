@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.get;
-import static spark.Spark.post;
+
 /**
  * Created by vishalkuo on 2016-04-22.
  */
 public class Entry {
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
-        map.put("message", "Hello, World!");
+        map.put("message", "");
 
 
         get("/", (req, res) -> new ModelAndView(map, "hello"), new JadeTemplateEngine());
@@ -32,4 +32,15 @@ public class Entry {
             return mon != null ? mon.getValue() : "not found!";
         });
     }
+
+    public static void testMonoxide(){
+        try{
+            Monoxide m = GetMonoxide.GetMonoxide(0.0, 10.0);
+            System.out.println(m.getPrecision());
+        } catch(Exception e){
+            return;
+        }
+
+    }
+
 }
