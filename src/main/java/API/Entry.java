@@ -3,7 +3,6 @@ package API;
 import Helpers.AirCheckConstants;
 import Models.Monoxide;
 import Models.Weather;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 
@@ -11,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.get;
+import static spark.Spark.staticFileLocation;
 
 /**
  * Created by vishalkuo on 2016-04-22.
@@ -18,6 +18,8 @@ import static spark.Spark.get;
 public class Entry {
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
+
+        staticFileLocation("/public");
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
