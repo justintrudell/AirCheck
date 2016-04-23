@@ -15,23 +15,26 @@ import java.io.IOException;
  */
 public class GetWeather {
     public static void main(String[] args) throws Exception {
-        Weather weather = getWeather(0.0, 10.0);
+        Weather weather = getWeather("Ottawa");
         System.out.println(weather.getHumidity());
     }
 
     static OkHttpClient client = new OkHttpClient();
 
-    public static Weather getWeather(double longitude, double latitude) throws Exception {
-        String test = CallWeatherAPI(String.format("%s/data/2.5/weather?lat=%s&lon=%s&appid=%s",
-                AirCheckConstants.ApiBaseUrl, longitude, latitude, AirCheckConstants.ApiToken));
+    public static Weather getWeather(String city) throws Exception {
+        String test = CallWeatherAPI(String.format("%s/data/2.5/weather?q=%s&appid=%s",
+                AirCheckConstants.ApiBaseUrl, city, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
+        System.out.println(test);
         JsonObject result = p.parse(test).getAsJsonObject();
-        if(!result.has("main")) {
+        if (!result.has("main")) {
             return null;
         }
-        JsonObject weatherObject = result.getAsJsonObject("main");
-        Weather weather = new Weather(weatherObject.get("temp").getAsDouble(),
-                weatherObject.get("humidity").getAsDouble(), weatherObject.get("pressure").getAsDouble());
+        JsonObject weatherMainObj = result.getAsJsonObject("main");
+        JsonObject weatherCoordObj = result.getAsJsonObject("coord");
+        Weather weather = new Weather(weatherMainObj.get("temp").getAsDouble(),
+                weatherMainObj.get("humidity").getAsDouble(), weatherMainObj.get("pressure").getAsDouble(),
+                weatherCoordObj.get("lon").getAsDouble(), weatherCoordObj.get("lat").getAsDouble());
         return weather;
     }
 

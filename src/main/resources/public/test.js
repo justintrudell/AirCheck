@@ -3,7 +3,7 @@ window.onload = function(){
     {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
-            populatePosition,
+            displayLocation,
             displayError
           );
         }
@@ -11,10 +11,34 @@ window.onload = function(){
           alert("Geolocation is not supported by this browser");
         }
 
-        function populatePosition(position) {
-          document.getElementById('latitude').value = Math.round(position.coords.latitude);
-          document.getElementById('longitude').value = Math.round(position.coords.longitude);
-        }
+        function displayLocation(position) {
+          var latitude = Math.round(position.coords.latitude);
+          var longitude = Math.round(position.coords.longitude);
+          var request = new XMLHttpRequest();
+
+          var method = 'GET';
+          var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
+          var async = true;
+
+          request.open(method, url, async);
+          request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+              var data = JSON.parse(request.responseText);
+              console.log(data);
+              var addressComponents = data.results[0].address_components;
+              for(i=0;i<addressComponents.length;i++){
+                var types = addressComponents[i].types
+                //alert(types);
+                if(types=="locality,political"){
+                  //alert(addressComponents[i].long_name); // this should be your city, depending on where you are
+                  $('#city').val(addressComponents[i].long_name);
+                }
+              }
+              //alert(address.city.short_name);
+            }
+          };
+          request.send();
+        };
 
         function displayError(error) {
           var errors = {
