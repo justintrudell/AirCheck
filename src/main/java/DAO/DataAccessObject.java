@@ -24,6 +24,13 @@ public class DataAccessObject {
         while(rs.next()){
             JsonObject jobj = new JsonObject();
             jobj.addProperty("coughLevel", rs.getString("cough_level"));
+            jobj.addProperty("breathlevel", rs.getString("breath"));
+            jobj.addProperty("wheezing", rs.getString("wheezing"));
+            jobj.addProperty("sneezing", rs.getString("sneezing"));
+            jobj.addProperty("nose_block", rs.getBoolean("nose_block"));
+            jobj.addProperty("itchy_eyes", rs.getBoolean("itchy_eyes"));
+            jobj.addProperty("latitude", rs.getDouble("latitude"));
+            jobj.addProperty("longitude", rs.getDouble("longitude"));
             jarr.add(jobj);
         }
         System.out.println(jarr);
