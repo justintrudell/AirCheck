@@ -81,7 +81,6 @@ function displayLocation(position) {
                     }
 
                     // Ajax to get weather and air quality data
-                    console.log("JERRY1 " + city);
                     if(city != "") {
                         $.ajax({
                           url: window.location.href + "data",
@@ -90,7 +89,6 @@ function displayLocation(position) {
                           },
                           type: "GET"
                         }).done(function(data) {
-                            console.log(typeof(data));
                             $('#air-quality').text("Air Quality:"  + data.quality);
                             $('#humidity').text("Humitidy: " + data.humidity);
                             setBgColor(data.color_quality);
