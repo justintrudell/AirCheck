@@ -5,6 +5,8 @@ import Helpers.AirCheckConstants;
 import Models.Monoxide;
 import Models.UserFeelings;
 import Models.Weather;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 
@@ -18,6 +20,9 @@ import static spark.Spark.staticFileLocation;
  * Created by vishalkuo on 2016-04-22.
  */
 public class Entry {
+    public static double _longitude;
+    public static double _latitude;
+
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
@@ -41,13 +46,26 @@ public class Entry {
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
-            // Multiply by a billion to get parts per billion
+            // Multiply by a million to get parts per milllion
             //System.out.println(mon.getValue() * 1000000);
             String quality = mon != null ? Monoxide.ppmToQuality(mon.getValue() * 1000000) : AirCheckConstants.ErrorMsg;
             map.put("quality", quality);
             map.put("color_quality", quality);
 
             return null;
+        });
+
+        get("/getCityCoords", (request, response) -> {
+            String city = request.queryParams("city");
+            Weather weather = GetWeather.getWeather(city);
+            double latitude = weather.getLatitude();
+            double longitude = weather.getLongitude();
+            System.out.println(latitude);
+            System.out.println(longitude);
+            JsonObject obj = new JsonObject();
+            obj.addProperty("latitude", latitude);
+            obj.addProperty("longitude", longitude);
+            return obj;
         });
 
         get("/symptomsform", (req, res) ->{
@@ -64,7 +82,14 @@ public class Entry {
             boolean noseBlock = Integer.valueOf(request.queryParams("noseBlock")) == 1;
             boolean itchyEyes = Integer.valueOf(request.queryParams("itchyEyes")) == 1;
             String city = request.queryParams("city");
-            UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock, itchyEyes, city);
+            double longitude = 0;
+            if(request.queryParams("longitude") != null && !request.queryParams("longitude").isEmpty())
+                longitude = Double.parseDouble(request.queryParams("longitude"));
+            double latitude = 0;
+            if(request.queryParams("latitude") != null && !request.queryParams("latitude").isEmpty())
+                latitude = Double.parseDouble(request.queryParams("latitude"));
+            UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock,
+                    itchyEyes, city, longitude, latitude);
             feels.Save();
             map.put("message", "Thanks for submitting!");
             response.redirect("/");

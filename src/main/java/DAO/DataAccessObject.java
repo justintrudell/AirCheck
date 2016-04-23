@@ -17,7 +17,7 @@ public class DataAccessObject {
 
     public static String processUsers() throws Exception{
         String sql = "SELECT * FROM Users";
-        c = DriverManager.getConnection("jdbc:sqlite:test.db");
+        c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
         stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
         JsonArray jarr = new JsonArray();

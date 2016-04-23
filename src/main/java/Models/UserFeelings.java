@@ -15,8 +15,11 @@ public class UserFeelings {
     private boolean noseBlock;
     private boolean itchyEyes;
     private String city;
+    private double longitude;
+    private double latitude;
 
-    public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes, String city) {
+    public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes, String city,
+                        double longitude, double latitude) {
         this.coughLevel = coughLevel;
         this.howIsBreath = howIsBreath;
         this.wheezing = wheezing;
@@ -24,6 +27,8 @@ public class UserFeelings {
         this.noseBlock = noseBlock;
         this.itchyEyes = itchyEyes;
         this.city = city;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public void Save() {
@@ -31,19 +36,32 @@ public class UserFeelings {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
 
             int _noseBlock = this.noseBlock ? 1 : 0;
             int _itchyEyes = this.itchyEyes ? 1 : 0;
             stmt = c.createStatement();
-            String sql = "INSERT INTO Users values(" +
+            String sql = "CREATE TABLE IF NOT EXISTS Users (" +
+                    "cough_level int, " +
+                    "breath int, " +
+                    "wheezing int, " +
+                    "sneezing int, " +
+                    "nose_block boolean, " +
+                    "itchy_eyes boolean, " +
+                    "city text, " +
+                    "longitude double, " +
+                    "latitude double)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Users values(" +
                     this.coughLevel + "," +
                     this.howIsBreath + "," +
                     this.wheezing + "," +
                     this.sneezing + "," +
                     _noseBlock + "," +
-                    _itchyEyes + ", \'" +
-                    this.city + "\'" +
+                    _itchyEyes + ",'" +
+                    this.city + "'," +
+                    this.longitude + "," +
+                    this.latitude +
                     ")";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -76,5 +94,13 @@ public class UserFeelings {
 
     public boolean isItchyEyes() {
         return itchyEyes;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }

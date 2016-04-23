@@ -22,9 +22,17 @@ html(lang="en")
         input(id='city', type='text', name='city')
         br
         br
-        input(type='submit')
-    br
-    br
+        input(type='submit', id='submitCity')
+        br
+        br
+        h4 Longitude:
+            input(id='longitude', disabled)
+        br
+        br
+        h4 Latitude:
+            input(id='latitude', disabled)
+        br
+        br
     h4(align='center') Air Quality: #{quality}
     br
     br
@@ -34,7 +42,14 @@ html(lang="en")
     br
     form(align='center', action='symptomsform', method='get')
         input(type='submit', value='Fill out your symptoms!')
-
+    br
+    br
+    br
+    form(align='center', action='UserView', method='get')
+            input(type='submit', value='View user information')
+    br
+    br
+    br
     script(type='text/javascript', src='https://code.jquery.com/jquery-git.min.js')
-    script(type='text/javascript', src='test.js')
+    script(type='text/javascript', src='aircheckscript.js')
 
