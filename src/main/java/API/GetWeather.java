@@ -26,7 +26,7 @@ public class GetWeather {
                 AirCheckConstants.ApiBaseUrl, longitude, latitude, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
         JsonObject result = p.parse(test).getAsJsonObject();
-        if(result.has("message") && result.get("message").getAsString().equals("not found")) {
+        if(!result.has("main")) {
             return null;
         }
         JsonObject weatherObject = result.getAsJsonObject("main");
