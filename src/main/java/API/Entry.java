@@ -21,16 +21,17 @@ public class Entry {
 
         // Route for forms
         get("/data", (request, response) -> {
+            response.redirect("/");
             System.out.println(request.body());
-
             double latitude = Double.parseDouble(request.queryParams("latitude"));
             double longitude = Double.parseDouble(request.queryParams("longitude"));
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
-            return mon != null ? mon.getValue() : "not found!";
+            String rvm = mon != null ? String.valueOf(mon.getValue()) : "not found!";
+            map.replace("message", rvm);
+            return null;
         });
-
 
         get("/symptomsform", (req, res) ->{
             map.put("message", "test");
@@ -50,16 +51,6 @@ public class Entry {
             response.redirect("/");
             return null;
         });
-
-    }
-
-    public static void testMonoxide(){
-        try{
-            Monoxide m = GetMonoxide.GetMonoxide(0.0, 10.0);
-            System.out.println(m.getPrecision());
-        } catch(Exception e){
-            return;
-        }
 
     }
 
