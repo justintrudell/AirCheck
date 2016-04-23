@@ -31,8 +31,8 @@ public class Entry {
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
-            String rvm = mon != null ? String.valueOf(mon.getValue()) : AirCheckConstants.ErrorMsg;
-            map.put("rvm", rvm);
+            String vmr = mon != null ? String.valueOf(mon.getValue()) : AirCheckConstants.ErrorMsg;
+            map.put("vmr", vmr);
 
             // Getting humidity value
             Weather weather = GetWeather.getWeather(longitude, latitude);
