@@ -53,7 +53,8 @@ public class UserFeelings {
                     "itchy_eyes boolean, " +
                     "city text, " +
                     "longitude double, " +
-                    "latitude double)";
+                    "latitude double, " +
+                    "intensity double)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Users values(" +
                     this.coughLevel + "," +
@@ -64,7 +65,8 @@ public class UserFeelings {
                     _itchyEyes + ",'" +
                     this.city + "'," +
                     new DecimalFormat("#.###").format(this.longitude) + "," +
-                    new DecimalFormat("#.###").format(this.latitude) +
+                    new DecimalFormat("#.###").format(this.latitude) + "," +
+                    this.intensity +
                     ")";
             stmt.executeUpdate(sql);
             stmt.close();

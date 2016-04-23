@@ -32,6 +32,7 @@ public class DataAccessObject {
             jobj.addProperty("city", rs.getString("city"));
             jobj.addProperty("longitude", rs.getString("longitude"));
             jobj.addProperty("latitude", rs.getString("latitude"));
+            jobj.addProperty("intensity", rs.getString("intensity"));
             jarr.add(jobj);
         }
         rs.close();

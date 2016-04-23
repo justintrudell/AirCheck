@@ -1,11 +1,7 @@
 package Helpers;
 
 import Models.Coordinate;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -37,6 +33,7 @@ public class DataGeneration {
                 int sneezing = RandInt(0,10);
                 int _noseBlock = RandInt(0,1);
                 int _itchyEyes = RandInt(0,1);
+                int _intensity = RandInt(0, 10);
                 Coordinate coord = GetRandomLongAndLat();
                 double longitude = coord.getLongitude();
                 double latitude = coord.getLatitude();
@@ -51,7 +48,8 @@ public class DataGeneration {
                         _itchyEyes + ",'" +
                         " " + "'," +
                         longitude + "," +
-                        latitude +
+                        latitude + "," +
+                        _intensity +
                         ")";
                 stmt.executeUpdate(sql);
             }
