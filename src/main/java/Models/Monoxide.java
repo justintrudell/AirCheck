@@ -13,6 +13,7 @@ public class Monoxide {
 
     // Takes in a parts-per-million value for carbon monoxide and
     // returns a string indicating air quality
+    //This should be inverse lol
     public static String ppmToQuality(double ppm) {
         double quality;
         if(ppm < 0.5) {
