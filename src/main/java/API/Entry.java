@@ -30,7 +30,7 @@ public class Entry {
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
             String rvm = mon != null ? String.valueOf(mon.getValue()) : "not found!";
-            map.put("rvm", rvm);
+            map.put("message", rvm);
             return null;
         });
 
