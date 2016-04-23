@@ -14,15 +14,9 @@ html(lang="en")
   body
     h1(align='center') AirCheck
     br
-    div(align='center')
-        button(id='locationButton', type='button') Get my current location
-    br
     form(align='center', action='data', method='get')
-        h4 Enter a City:
+        h4 Current City:
         input(id='city', type='text', name='city')
-        br
-        br
-        input(type='submit', id='submitCity')
         br
         br
         h4 Longitude:
@@ -33,11 +27,11 @@ html(lang="en")
             input(id='latitude', disabled)
         br
         br
-    h4(align='center') Air Quality: #{quality}
+    h4(id='air-quality', align='center') Air Quality:
     br
     br
     br
-    h4(align='center') Humidity: #{humidity}
+    h4(id='humidity', align='center') Humidity:
     br
     br
     form(align='center', action='symptomsform', method='get')
@@ -55,6 +49,66 @@ html(lang="en")
     br
     br
     br
+
+    //- div(align='center')
+    //-   strong
+    //-   h1(style='font-weight:bold;') Symptoms Datasheet
+    //-   br
+    //-   br
+    //-   form(align='center', action='symptomsentry', method='get')
+    //-       h2(align='center') Which city are you located in?
+    //-       br
+    //-       input(type='text', name='city', id='city')
+    //-       button(id='submitCity', type='button') Find the city!
+    //-       br
+    //-       br
+    //-       h4 or
+    //-       br
+    //-       br
+    //-       div(align='center')
+    //-           button(id='locationButton', type='button') Get your current location
+    //-       br
+    //-       br
+    //-       h4 Longitude:
+    //-           input(type='text', id='longitude', name='longitude')
+    //-       br
+    //-       br
+    //-       h4 Latitude:
+    //-           input(id='latitude', name='longitude')
+    //-       br
+    //-       br
+    //-       div(id='map')
+    //-       br
+    //-       br
+    //-       h2(align='center') Fill out your symptoms below from 1 to 10:
+    //-       br
+    //-       span(padding-right='20')
+    //-       h4 Cough level:
+    //-           input(type='range', name='coughLevel', min='0', max='10')
+    //-       br
+    //-       h4 Shortness of breath:
+    //-           input(type='range', name='howIsBreath', min='0', max='10')
+    //-       br
+    //-       h4 Wheezing:
+    //-           input(type='range', name='wheezing', min='0', max='10')
+    //-       br
+    //-       h4 Sneezing:
+    //-           input(type='range', name='sneezing', min='0', max='10')
+    //-       br
+    //-       h4 Is your nose obstructed?
+    //-           input(type='checkbox', name='noseBlock')
+    //-       br
+    //-       h4 Are your eyes itchy?
+    //-           input(type='checkbox', name='itchyEyes')
+    //-       br
+    //-       br
+    //-       br
+    //-       input(id='submitButton', type='submit')
+    //-       br
+    //-       br
+    //-       br
+    //-       br
     script(type='text/javascript', src='https://code.jquery.com/jquery-git.min.js')
     script(type='text/javascript', src='aircheckscript.js')
-
+    script(type='text/javascript', src='gmaps.js')
+    script(type='text/javascript', src='http://maps.google.com/maps/api/js')

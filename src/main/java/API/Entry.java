@@ -32,12 +32,11 @@ public class Entry {
 
         // Route for forms
         get("/data", (request, response) -> {
-            response.redirect("/");
+            response.type("application/json");
             // Getting humidity value
             String city = request.queryParams("city");
             Weather weather = GetWeather.getWeather(city);
             String humidity = weather != null ? String.valueOf(weather.getHumidity()) : AirCheckConstants.ErrorMsg;
-            map.put("humidity", humidity);
 
 
             // Getting CO VMR value
@@ -49,10 +48,14 @@ public class Entry {
             // Multiply by a million to get parts per milllion
             //System.out.println(mon.getValue() * 1000000);
             String quality = mon != null ? Monoxide.ppmToQuality(mon.getValue() * 1000000) : AirCheckConstants.ErrorMsg;
-            map.put("quality", quality);
-            map.put("color_quality", quality);
 
-            return null;
+            JsonObject ret = new JsonObject();
+
+            ret.addProperty("humidity", humidity);
+            ret.addProperty("quality", quality);
+            ret.addProperty("color_quality", quality);
+
+            return ret;
         });
 
         get("/getCityCoords", (request, response) -> {
