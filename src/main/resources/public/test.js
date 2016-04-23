@@ -25,4 +25,14 @@ window.onload = function(){
           alert("Error: " + errors[error.code]);
         }
     };
+
 };
+
+$(document).ready(function(){
+    if(c_quality === -1){
+        $(this).css('background-color', 'red');
+        console.log($(this).css('background-color'))
+    } else {
+        console.log("HERE")
+    }
+})

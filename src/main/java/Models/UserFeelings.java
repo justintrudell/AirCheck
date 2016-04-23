@@ -1,4 +1,4 @@
-package API;
+package Models;
 
 /**
  * Created by vishalkuo on 2016-04-22.

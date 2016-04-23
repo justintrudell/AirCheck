@@ -1,7 +1,13 @@
 doctype html
 html(lang="en")
   head
-    script(type='text/javascript', src='test.js')
+    script(type='text/javascript').
+      foo = true;
+      c_quality=#{color_quality}
+      bar = function () {};
+      if (foo) {
+      bar(1 + 5)
+      }
   body
     h1(align='center') AirCheck
     br
@@ -27,3 +33,6 @@ html(lang="en")
     br
     form(align='center', action='symptomsform', method='get')
         input(type='submit', value='Fill out your symptoms!')
+
+    script(type='text/javascript', src='https://code.jquery.com/jquery-git.min.js')
+    script(type='text/javascript', src='test.js')

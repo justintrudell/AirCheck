@@ -2,6 +2,7 @@ package API;
 
 import Helpers.AirCheckConstants;
 import Models.Monoxide;
+import Models.UserFeelings;
 import Models.Weather;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
@@ -18,7 +19,7 @@ import static spark.Spark.staticFileLocation;
 public class Entry {
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
-
+        map.put("color_quality", "-1");
         staticFileLocation("/public");
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
@@ -37,6 +38,7 @@ public class Entry {
             //System.out.println(mon.getValue() * 1000000);
             String quality = mon != null ? Monoxide.ppmToQuality(mon.getValue() * 1000000) : AirCheckConstants.ErrorMsg;
             map.put("quality", quality);
+            map.put("color_quality", quality);
 
             // Getting humidity value
             Weather weather = GetWeather.getWeather(longitude, latitude);
@@ -71,14 +73,4 @@ public class Entry {
         });
 
     }
-
-    public static void testMonoxide(){
-        try{
-            Monoxide m = GetMonoxide.GetMonoxide(0.0, 10.0);
-            System.out.println(m.getPrecision());
-        } catch(Exception e){
-            return;
-        }
-    }
-
 }
