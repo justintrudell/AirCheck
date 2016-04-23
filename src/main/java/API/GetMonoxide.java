@@ -12,11 +12,7 @@ import java.io.IOException;
 
 public class GetMonoxide {
 
-    public static void main(String[] args) throws Exception {
-        Monoxide monoxide = GetMonoxide(0.0, 10.0);
-        System.out.println(monoxide.getValue());
-    }
-    static OkHttpClient client = new OkHttpClient();
+    private static OkHttpClient client = new OkHttpClient();
 
     public static Monoxide GetMonoxide(double longitude, double latitude) throws Exception {
         // Casting lat and lon to int so we can match data better
@@ -30,7 +26,8 @@ public class GetMonoxide {
         }
         JsonObject monoxideObject = result.getAsJsonArray("data").get(0).getAsJsonObject();
         Monoxide monoxide = new Monoxide(monoxideObject.get(AirCheckConstants.MonoxidePrecision).getAsDouble(),
-                monoxideObject.get(AirCheckConstants.MonoxidePressure).getAsDouble(), monoxideObject.get(AirCheckConstants.MonoxideValue).getAsDouble());
+                monoxideObject.get(AirCheckConstants.MonoxidePressure).getAsDouble(),
+                monoxideObject.get(AirCheckConstants.MonoxideValue).getAsDouble());
         return monoxide;
     }
 

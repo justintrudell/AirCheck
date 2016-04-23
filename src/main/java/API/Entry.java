@@ -23,10 +23,11 @@ public class Entry {
     public static double _longitude;
     public static double _latitude;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
         staticFileLocation("/public");
+        GetUser.ProcessUserFeelings();
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
