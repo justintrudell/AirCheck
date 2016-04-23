@@ -45,11 +45,8 @@ public class Entry {
             // Getting CO VMR value
             double latitude = weather.getLatitude();
             double longitude = weather.getLongitude();
-            System.out.println(latitude);
-            System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
             // Multiply by a million to get parts per milllion
-            //System.out.println(mon.getValue() * 1000000);
             String quality = mon != null ? Monoxide.ppmToQuality(mon.getValue() * 1000000) : AirCheckConstants.ErrorMsg;
 
             JsonObject ret = new JsonObject();
@@ -66,8 +63,6 @@ public class Entry {
             Weather weather = GetWeather.getWeather(city);
             double latitude = weather.getLatitude();
             double longitude = weather.getLongitude();
-            System.out.println(latitude);
-            System.out.println(longitude);
             JsonObject obj = new JsonObject();
             obj.addProperty("latitude", latitude);
             obj.addProperty("longitude", longitude);
