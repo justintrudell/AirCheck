@@ -18,6 +18,7 @@ public class UserFeelings {
     private String city;
     private double longitude;
     private double latitude;
+    private double intensity;
 
     public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes, String city,
                         double longitude, double latitude) {
@@ -30,6 +31,7 @@ public class UserFeelings {
         this.city = city;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.intensity = GetSymptomIntensity();
     }
 
     public void Save() {
@@ -71,6 +73,14 @@ public class UserFeelings {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public double GetSymptomIntensity() {
+        double total = coughLevel + howIsBreath +
+                wheezing*0.8 + sneezing*0.8;
+        total += noseBlock ? 6 : 0;
+        total += itchyEyes ? 6 : 0;
+        return total;
     }
 
     public int getCoughLevel() {
