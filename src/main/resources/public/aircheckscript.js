@@ -20,12 +20,12 @@ function setBgColor(c_quality) {
     //Comment following line out if you hate color
     //c_quality = -1
     if(c_quality === -1){
-        $('body').css('background-color', 'white');
+        $('#air-quality-status').css('background-color', 'white');
     } else {
         c_quality++
         shown_red =  red + divisions * c_quality
         shown_blue = blue - shown_red
-        $('body').css('background-color', 'rgb(' + shown_red + ',180,'+ 100+')');
+        $('#air-quality-status').css('background-color', 'rgb(' + shown_red + ',180,'+ 100+')');
         //$('body').css('background-color', 'rgb(shown_red, 0, shown_blue)');
     }
 }
