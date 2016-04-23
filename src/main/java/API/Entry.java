@@ -27,7 +27,7 @@ public class Entry {
         get("/data", (request, response) -> {
             response.redirect("/");
 
-            // Getting CO RVM value
+            // Getting CO VMR value
             double latitude = Double.parseDouble(request.queryParams("latitude"));
             double longitude = Double.parseDouble(request.queryParams("longitude"));
             System.out.println(latitude);
