@@ -1,6 +1,9 @@
 package API;
 
+import Helpers.AirCheckConstants;
 import Models.Monoxide;
+import Models.Weather;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 
@@ -15,21 +18,26 @@ import static spark.Spark.get;
 public class Entry {
     public static void main(String[] args){
         Map<String, String> map = new HashMap<>();
-        map.put("message", "");
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
         // Route for forms
         get("/data", (request, response) -> {
             response.redirect("/");
-            System.out.println(request.body());
+
+            // Getting CO RVM value
             double latitude = Double.parseDouble(request.queryParams("latitude"));
             double longitude = Double.parseDouble(request.queryParams("longitude"));
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
-            String rvm = mon != null ? String.valueOf(mon.getValue()) : "not found!";
-            map.replace("message", rvm);
+            String rvm = mon != null ? String.valueOf(mon.getValue()) : AirCheckConstants.ErrorMsg;
+            map.put("rvm", rvm);
+
+            // Getting humidity value
+            Weather weather = GetWeather.getWeather(longitude, latitude);
+            String humidity = weather != null ? String.valueOf(weather.getHumidity()) : AirCheckConstants.ErrorMsg;
+            map.put("humidity", humidity);
             return null;
         });
 

@@ -1,6 +1,6 @@
 package API;
 
-import Helpers.Constants;
+import Helpers.AirCheckConstants;
 import Models.Weather;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +23,7 @@ public class GetWeather {
 
     public static Weather getWeather(double longitude, double latitude) throws Exception {
         String test = CallWeatherAPI(String.format("%s/data/2.5/weather?lat=%s&lon=%s&appid=%s",
-                Constants.ApiBaseUrl, longitude, latitude, Constants.ApiToken));
+                AirCheckConstants.ApiBaseUrl, longitude, latitude, AirCheckConstants.ApiToken));
         JsonParser p = new JsonParser();
         JsonObject result = p.parse(test).getAsJsonObject();
         if(result.has("message") && result.get("message").getAsString().equals("not found")) {
