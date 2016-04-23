@@ -27,7 +27,6 @@ public class Entry {
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
         staticFileLocation("/public");
-        //AirCheckUser.GetListOfCoordinates();
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 

@@ -1,15 +1,14 @@
 package API;
 
-import Helpers.AirCheckConstants;
 import Models.Coordinate;
 import Models.Monoxide;
 import Models.UserFeelings;
 import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import static DAO.DataAccessObject.processUsers;
 
