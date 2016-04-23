@@ -29,7 +29,9 @@ public class Entry {
             System.out.println(latitude);
             System.out.println(longitude);
             Monoxide mon = GetMonoxide.GetMonoxide(longitude, latitude);
-            return mon != null ? mon.getValue() : "not found!";
+            String rvm = mon != null ? String.valueOf(mon.getValue()) : "not found!";
+            map.put("rvm", rvm);
+            return null;
         });
     }
 
