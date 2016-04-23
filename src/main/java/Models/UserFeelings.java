@@ -1,5 +1,9 @@
 package Models;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
 /**
  * Created by vishalkuo on 2016-04-22.
  */
@@ -23,6 +27,35 @@ public class UserFeelings {
         this.latitude = latitude;
 
         this.longitude = longitude;
+    }
+
+    public void Save() {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+
+            int _noseBlock = this.noseBlock ? 1 : 0;
+            int _itchyEyes = this.itchyEyes ? 1 : 0;
+            stmt = c.createStatement();
+            String sql = "INSERT INTO Users values(" +
+                    this.coughLevel + "," +
+                    this.howIsBreath + "," +
+                    this.wheezing + "," +
+                    this.sneezing + "," +
+                    _noseBlock + "," +
+                    _itchyEyes + "," +
+                    this.latitude + "," +
+                    this.longitude +
+                    ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
     }
 
     public int getCoughLevel() {
