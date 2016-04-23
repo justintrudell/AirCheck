@@ -32,4 +32,14 @@ public class test {
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
+
+    private class myclass{
+        public double test;
+
+        public myclass(double test) {
+            this.test = test;
+        }
+
+
+    }
 }
