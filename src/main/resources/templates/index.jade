@@ -1,93 +1,182 @@
 doctype html
 html(lang="en")
   head
-    link(href='bootstrap.css', rel='stylesheet')
-    link(href='bootstrap.min.css', rel='stylesheet')
-    link(href='style.css', rel='stylesheet')
-    link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    script(type='text/javascript').
-      foo = true;
-      c_quality= -1;
-      bar = function () {};
-      if (foo) {
-      bar(1 + 5)
-      }
-  body
-    h1(align='center') AirCheck
-    br
-    .status-wrapper
-        #air-quality-status-wrapper
-            h4.air-quality Air Quality:
-            #air-quality-status.air-quality
-        div(id='map')
-    h4(id='air-quality', align='center') Air Quality:
-    br
-    br
-    br
-    h4(id='humidity', align='center') Humidity:
-    br
-    br
-    form(align='center', action='symptomsform', method='get')
-        input(type='submit', value='Fill out your symptoms!')
-    br
-    br
-    br
-    form(align='center', action='UserView', method='get')
-            input(type='submit', value='View user information')
-    br
-    br
-    br
-    form(align='center', action='generateUsers', method='get')
-            input(type='submit', value='Generate random users')
-    br
-    br
-    br
+    title Ion by TEMPLATED
+    //- meta(http-equiv='content-type', content='text/html; charset=utf-8')
+    //- meta(name='description', content='')
+    //- meta(name='keywords', content='')
+    //if lte IE 8
+    script(src='js/html5shiv.js')
+    script(src='js/jquery.min.js')
+    script(src='js/skel.min.js')
+    script(src='js/skel-layers.min.js')
+    script(src='js/init.js')
+    //- link(href='bootstrap.css', rel='stylesheet')
+    //- link(href='bootstrap.min.css', rel='stylesheet')
+    //- link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
 
-    div(align='center')
-      strong
-      h1(style='font-weight:bold;') Symptoms Datasheet
-      br
-      br
-      form(align='center', action='symptomsentry', method='get')
-          h4 Current City:
-          input(id='city', type='text', name='city')
-          br
-          h4 Latitude:
-          input(id='latitude', name='latitude')
-          br
-          h4 Longitude:
-          input(id='longitude', name='longitude')
-          br
-          br
-          br
-          h2(align='center') Fill out your symptoms below:
-          br
-          span(padding-right='20')
-          h4 Cough level:
-              input(type='range', name='coughLevel', min='0', max='10')
-          br
-          h4 Shortness of breath:
-              input(type='range', name='howIsBreath', min='0', max='10')
-          br
-          h4 Wheezing:
-              input(type='range', name='wheezing', min='0', max='10')
-          br
-          h4 Sneezing:
-              input(type='range', name='sneezing', min='0', max='10')
-          br
-          h4 Is your nose obstructed?
-              input(type='checkbox', name='noseBlock')
-          br
-          h4 Are your eyes itchy?
-              input(type='checkbox', name='itchyEyes')
-          br
-          br
-          br
-          input(id='submitButton', type='submit')
-          br
-          br
-          br
-          br
+    //- link(rel='stylesheet', href='css/skel.css')
+    //- link(rel='stylesheet', href='css/style.css')
+    //- link(rel='stylesheet', href='css/style-xlarge.css')
+
+    link(href='style.css', rel='stylesheet')
+
+  body#top
+    // Header
+    header#header.skel-layers-fixed
+      h1
+        a Spaceapps 2016
+      nav#nav
+        ul
+          li
+            a(href='index.html') Home
+    // Banner
+    section#banner
+      .inner
+        h2 This is AirCheck
+        p
+          | A free responsive template by TEMPLATED
+        ul.actions
+          li
+            a.button.big.special(href='#content') Sign Up
+          li
+            a.button.big.alt(href='#elements') Learn More
+    // One
+    section#one.wrapper.style1
+      header.major
+        h2 Disease heatmap
+      .container
+        .row
+          .12u
+            section.special.box.status-wrapper
+              #air-quality-status-wrapper
+                h4.air-quality Air Quality:
+                #air-quality-status.air-quality
+              div(id='map')
+
+    //-       .4u
+    //-         section.special.box
+    //-           i.icon.fa-refresh.major
+    //-           h3 Blandit quis curae
+    //-           p
+    //-             | Eu non col commodo accumsan ante mi. Commodo consectetur sed mi adipiscing accumsan ac nunc tincidunt lobortis.
+    //-       .4u
+    //-         section.special.box
+    //-           i.icon.fa-cog.major
+    //-           h3 Amet sed accumsan
+    //-           p
+    //-             | Eu non col commodo accumsan ante mi. Commodo consectetur sed mi adipiscing accumsan ac nunc tincidunt lobortis.
+    //- // Two
+    section#two.wrapper.style2
+      header.major
+        h2 Commodo accumsan aliquam
+        p Amet nisi nunc lorem accumsan
+      .container
+        .row
+          .6u
+            section.special
+              a.image.fit(href='#')
+              h3 Mollis adipiscing nisl
+              p
+                | Eget mi ac magna cep lobortis faucibus accumsan enim lacinia adipiscing metus urna adipiscing cep commodo id. Ac quis arcu amet. Arcu nascetur lorem adipiscing non faucibus odio nullam arcu lobortis. Aliquet ante feugiat. Turpis aliquet ac posuere volutpat lorem arcu aliquam lorem.
+              ul.actions
+                li
+                  a.button.alt(href='#') Learn More
+          .6u
+            section.special
+              a.image.fit(href='#')
+              h3 Neque ornare adipiscing
+              p
+                | Eget mi ac magna cep lobortis faucibus accumsan enim lacinia adipiscing metus urna adipiscing cep commodo id. Ac quis arcu amet. Arcu nascetur lorem adipiscing non faucibus odio nullam arcu lobortis. Aliquet ante feugiat. Turpis aliquet ac posuere volutpat lorem arcu aliquam lorem.
+              ul.actions
+                li
+                  a.button.alt(href='#') Learn More
+    // Three
+    section#three.wrapper.style1
+      .container
+        .row
+          .8u
+            section
+              h2 Mollis ut adipiscing
+              a.image.fit(href='#')
+              p
+                | Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit accumsan sapien blandit ac amet faucibus aliquet placerat commodo. Interdum ante aliquet commodo accumsan vis phasellus adipiscing. Ornare a in lacinia. Vestibulum accumsan ac metus massa tempor. Accumsan in lacinia ornare massa amet. Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan commodo odio cubilia ac eu interdum placerat placerat arcu commodo lobortis adipiscing semper ornare pellentesque.
+          .4u
+            section
+              h3 Magna massa blandit
+              p
+                | Feugiat amet accumsan ante aliquet feugiat accumsan. Ante blandit accumsan eu amet tortor non lorem felis semper. Interdum adipiscing orci feugiat penatibus adipiscing col cubilia lorem ipsum dolor sit amet feugiat consequat.
+              ul.actions
+                li
+                  a.button.alt(href='#') Learn More
+            hr
+            section
+              h3 Ante sed commodo
+              ul.alt
+                li
+                  a(href='#') Erat blandit risus vis adipiscing
+                li
+                  a(href='#') Tempus ultricies faucibus amet
+                li
+                  a(href='#') Arcu commodo non adipiscing quis
+                li
+                  a(href='#') Accumsan vis lacinia semper
+    // Footer
+    footer#footer
+      .container
+        .row.double
+          .6u
+            .row.collapse-at-2
+              .6u
+                h3 Accumsan
+                ul.alt
+                  li
+                    a(href='#') Nascetur nunc varius
+                  li
+                    a(href='#') Vis faucibus sed tempor
+                  li
+                    a(href='#') Massa amet lobortis vel
+                  li
+                    a(href='#') Nascetur nunc varius
+              .6u
+                h3 Faucibus
+                ul.alt
+                  li
+                    a(href='#') Nascetur nunc varius
+                  li
+                    a(href='#') Vis faucibus sed tempor
+                  li
+                    a(href='#') Massa amet lobortis vel
+                  li
+                    a(href='#') Nascetur nunc varius
+          .6u
+            h2 Aliquam Interdum
+            p
+              | Blandit nunc tempor lobortis nunc non. Mi accumsan. Justo aliquet massa adipiscing cubilia eu accumsan id. Arcu accumsan faucibus vis ultricies adipiscing ornare ut. Mi accumsan justo aliquet.
+            ul.icons
+              li
+                a.icon.fa-twitter(href='#')
+                  span.label Twitter
+              li
+                a.icon.fa-facebook(href='#')
+                  span.label Facebook
+              li
+                a.icon.fa-instagram(href='#')
+                  span.label Instagram
+              li
+                a.icon.fa-linkedin(href='#')
+                  span.label LinkedIn
+              li
+                a.icon.fa-pinterest(href='#')
+                  span.label Pinterest
+        ul.copyright
+          li © Untitled. All rights reserved.
+          li
+            | Design: 
+            a(href='http://templated.co') TEMPLATED
+          li
+            | Images: 
+            a(href='http://unsplash.com') Unsplash
     script(type='text/javascript', src='https://code.jquery.com/jquery-git.min.js')
     script(type='text/javascript', src='symptomsform.js')
     script(type='text/javascript', src='aircheckscript.js')
