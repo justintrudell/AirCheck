@@ -14,19 +14,16 @@ public class UserFeelings {
     private int sneezing;
     private boolean noseBlock;
     private boolean itchyEyes;
-    private double latitude;
-    private double longitude;
+    private String city;
 
-    public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes, double latitude, double longitude) {
+    public UserFeelings(int coughLevel, int howIsBreath, int wheezing, int sneezing, boolean noseBlock, boolean itchyEyes, String city) {
         this.coughLevel = coughLevel;
         this.howIsBreath = howIsBreath;
         this.wheezing = wheezing;
         this.sneezing = sneezing;
         this.noseBlock = noseBlock;
         this.itchyEyes = itchyEyes;
-        this.latitude = latitude;
-
-        this.longitude = longitude;
+        this.city = city;
     }
 
     public void Save() {
@@ -45,9 +42,8 @@ public class UserFeelings {
                     this.wheezing + "," +
                     this.sneezing + "," +
                     _noseBlock + "," +
-                    _itchyEyes + "," +
-                    this.latitude + "," +
-                    this.longitude +
+                    _itchyEyes + ", \'" +
+                    this.city + "\'" +
                     ")";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -80,13 +76,5 @@ public class UserFeelings {
 
     public boolean isItchyEyes() {
         return itchyEyes;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
     }
 }

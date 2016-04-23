@@ -22,8 +22,7 @@ public class test {
                    "sneezing int, " +
                    "nose_block boolean, " +
                    "itchy_eyes boolean, " +
-                   "latitude real, " +
-                   "longitude real)";
+                   "city text)";
            stmt.executeUpdate(sql);
            stmt.close();
            c.close();

@@ -29,8 +29,7 @@ public class DataAccessObject {
             jobj.addProperty("sneezing", rs.getString("sneezing"));
             jobj.addProperty("nose_block", rs.getBoolean("nose_block"));
             jobj.addProperty("itchy_eyes", rs.getBoolean("itchy_eyes"));
-            jobj.addProperty("latitude", rs.getDouble("latitude"));
-            jobj.addProperty("longitude", rs.getDouble("longitude"));
+            jobj.addProperty("city", rs.getString("city"));≠
             jarr.add(jobj);
         }
         rs.close();
