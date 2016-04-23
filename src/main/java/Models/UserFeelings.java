@@ -2,6 +2,7 @@ package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 
@@ -57,12 +58,14 @@ public class UserFeelings {
                     ")";
             System.out.println(sql);
             stmt.executeUpdate(sql);
+            sql = "select intensity from Cities where city = \"" + this.city + "\"";
+            ResultSet rs = stmt.executeQuery(sql);
+            double intensity = rs.next()? rs.getDouble("intensity") + this.intensity : this.intensity;
             sql = "INSERT OR REPLACE INTO Cities Values("
                     + "\""+ this.city +"\", "
                     + this.latitude + ", "
                     + this.longitude + ","
-                    + "(select intensity from Cities where city = \""+ this.city + "\") +"
-                    +  this.intensity + ")";
+                    + intensity + ")";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             stmt.close();
