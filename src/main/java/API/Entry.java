@@ -5,7 +5,6 @@ import Helpers.AirCheckConstants;
 import Models.Monoxide;
 import Models.UserFeelings;
 import Models.Weather;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
@@ -27,7 +26,6 @@ public class Entry {
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
         staticFileLocation("/public");
-        GetUser.ProcessUserFeelings();
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
