@@ -7,7 +7,13 @@ import Helpers.DataGeneration;
 import Models.Monoxide;
 import Models.UserFeelings;
 import Models.Weather;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import twitter4j.*;
@@ -25,6 +31,8 @@ import static spark.Spark.staticFileLocation;
  * Created by vishalkuo on 2016-04-22.
  */
 public class Entry {
+
+    static OkHttpClient client = new OkHttpClient();
 
     public static void main(String[] args) throws Exception {
         RunTwitterStream();
@@ -128,7 +136,51 @@ public class Entry {
             return DataAccessObject.processCities();
         }, new JsonTransformer());
 
+        get("/typeform", (request, response) -> {
+            // UserFeelings data members
+            int coughLevel = 0;
+            int howIsBreath = 0;
+            int wheezing = 0;
+            int sneezing = 0;
+            boolean noseBlock = false;
+            boolean itchyEyes = false;
+            String city = request.queryParams("city");
+            double longitude = 0;
+            double latitude = 0;
 
+            response.type("application/json");
+            if(request.queryParams("lat") != null) {
+                latitude = Double.valueOf(request.queryParams("lat"));
+            }
+            if(request.queryParams("lon") != null) {
+                longitude = Double.valueOf(request.queryParams("lon"));
+            }
+            Request req = new Request.Builder().url("https://api.typeform.com/v1/form/UlrIrF?key=3c664b74af9b1aadf9d563ead04dd82c7932623e&completed=true").build();
+            Response res = client.newCall(req).execute();
+            JsonParser parser = new JsonParser();
+            JsonObject obj = parser.parse(res.body().string()).getAsJsonObject();
+            JsonArray resps = obj.get("responses").getAsJsonArray();
+            JsonObject data = resps.get(resps.size() - 1).getAsJsonObject().get("answers").getAsJsonObject();
+            System.out.println(data);
+            for(Map.Entry<String,JsonElement> entry : data.entrySet()) {
+                if(entry.getKey().contains("list_")) {
+                    String value = entry.getValue().getAsString();
+                    switch(value) {
+                        case "Cough": coughLevel = 10;
+                        case "Nasal Obstruction" : noseBlock = true;
+                        case "Shortness of Breath" : howIsBreath = 10;
+                        case "Wheezing" : wheezing = 10;
+                        case "Sneezing" : sneezing = 10;
+                        case "Itchy Eyes" : itchyEyes = true;
+                    }
+                }
+            }
+            UserFeelings user = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing, noseBlock, itchyEyes,
+                    city, longitude, latitude);
+            DAOEntryMethodCaller.createTables();
+            user.Save();
+            return obj;
+        });
 
     }
 
