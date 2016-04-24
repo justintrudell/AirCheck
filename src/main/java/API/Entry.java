@@ -41,7 +41,10 @@ public class Entry {
         staticFileLocation("/public");
         // Create
         DAOEntryMethodCaller.createTables();
-        RunTwitterStream();
+        try {
+            RunTwitterStream();
+        }
+        catch(Exception e) {  }
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
@@ -367,7 +370,7 @@ public class Entry {
 
             @Override
             public void onException(Exception ex) {
-                ex.printStackTrace();
+
             }
         };
 
