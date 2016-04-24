@@ -36,13 +36,12 @@ public class Entry {
     static OkHttpClient client = new OkHttpClient();
 
     public static void main(String[] args) throws Exception {
-        RunTwitterStream();
-
         Map<String, String> map = new HashMap<>();
         map.put("color_quality", "-1");
         staticFileLocation("/public");
         // Create
         DAOEntryMethodCaller.createTables();
+        RunTwitterStream();
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 

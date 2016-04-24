@@ -107,7 +107,7 @@ public class DataAccessObject {
             jobj.addProperty("latitude", rs.getDouble("latitude"));
             jobj.addProperty("temp", rs.getDouble("temp"));
             jobj.addProperty("weight", rs.getDouble("intensity"));
-            if(rs.getDouble("intensity") > 1000d)
+            if(rs.getDouble("intensity") > 150d)
                 SendTweet(rs.getDouble("intensity"), GetLocation.CoordsToCity(rs.getDouble("longitude"), rs.getDouble("latitude")));
             jarr.add(jobj);
         }
