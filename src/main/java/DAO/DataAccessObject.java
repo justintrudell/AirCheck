@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import twitter4j.TwitterException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -108,7 +109,12 @@ public class DataAccessObject {
             jobj.addProperty("temp", rs.getDouble("temp"));
             jobj.addProperty("weight", rs.getDouble("intensity"));
             if(rs.getDouble("intensity") > 150d)
-                SendTweet(rs.getDouble("intensity"), GetLocation.CoordsToCity(rs.getDouble("longitude"), rs.getDouble("latitude")));
+                try{
+                    SendTweet(rs.getDouble("intensity"), GetLocation.CoordsToCity(rs.getDouble("longitude"), rs.getDouble("latitude")));
+                } catch (TwitterException e){
+                    System.out.println("lol");
+                }
+
             jarr.add(jobj);
         }
         rs.close();
