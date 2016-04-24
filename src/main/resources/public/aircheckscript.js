@@ -52,6 +52,7 @@ function displayLocation(position) {
 
                     // Ajax to get weather and air quality data
                     if(city != "") {
+                        globalCity = city;
                         $.ajax({
                           url: window.location.href + "data",
                           data: {

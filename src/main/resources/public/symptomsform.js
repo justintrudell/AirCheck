@@ -1,4 +1,4 @@
-var map, sympmap, tempmap;
+var map, sympmap, tempmap, globalCity;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -139,8 +139,26 @@ $(document).ready(function(){
             } else {
                 tempmap.setMap(null)
             }
-        })
+    })
 
+    // Listen for typeform submit
+    $(window).on('message', function(ev) {
+        if(ev.originalEvent.data === 'form-submit') {
+            var lat = map.center.lat();
+            var lon = map.center.lng();
+            $.ajax({
+              url: window.location.href + "typeform",
+              contentType: "application/json",
+              type: "GET",
+              data: {
+                "lat" : lat,
+                "lon" : lon,
+                "city" : globalCity
+              }
+            }).done(function(data) {
+            });
+        }
+    });
 
 })
 
