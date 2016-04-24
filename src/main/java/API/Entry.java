@@ -12,6 +12,7 @@ import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import twitter4j.*;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -111,10 +112,10 @@ public class Entry {
             return new ModelAndView(map, "user_view");
         }, new JadeTemplateEngine());
 
-        get("/generateUsers", (request, response) -> {
+        get("/generateUserData", (request, response) -> {
+            DataGeneration.GenerateData(50);
+            System.out.println("Generated DATA!");
             response.redirect("/");
-            DataGeneration g = new DataGeneration();
-            g.GenerateData(1000);
             return null;
         });
 

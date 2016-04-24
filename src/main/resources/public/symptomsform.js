@@ -118,7 +118,18 @@ $(document).ready(function(){
         } else {
             sympmap.setMap(null)
         }
-    })
+    });
+
+    $('#generateData').click(function(){
+
+        $.ajax("http://localhost:4567/generateUserData", {
+            success: function(data) {
+
+            }, error: function(){
+                console.log("error")
+            }
+        })
+    });
 
 
     $('#toggle_temp').click(function(){
