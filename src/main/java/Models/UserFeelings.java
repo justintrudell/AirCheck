@@ -61,7 +61,7 @@ public class UserFeelings {
             sql = "select intensity from Cities where city = \"" + this.city + "\"";
             ResultSet rs = stmt.executeQuery(sql);
             double intensity = rs.next()? rs.getDouble("intensity") + this.intensity : this.intensity;
-            sql = "INSERT OR REPLACE INTO Cities Values("
+            sql = "INSERT OR REPLACE INTO Cities (city, latitude, longitude, intensity) Values("
                     + "\""+ this.city +"\", "
                     + this.latitude + ", "
                     + this.longitude + ","

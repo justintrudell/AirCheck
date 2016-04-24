@@ -1,11 +1,15 @@
 package Models;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
 /**
  * Created by jerry on 2016-04-22.
  */
 public class Weather {
     public Weather(double temp, double humidity, double pressure, double longitude, double latitude) {
-        this.temp = temp;
+        this.temp = temp - 273;
         this.humidity = humidity;
         this.pressure = pressure;
         this.longitude = longitude;
@@ -58,4 +62,26 @@ public class Weather {
     private double pressure;
     private double latitude;
     private double longitude;
+
+    public void save(String city, double latitude, double longitude){
+
+        try{
+            Connection c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
+            Statement stmt = c.createStatement();
+            String sql= "INSERT OR REPLACE INTO Cities (city, latitude, longitude, temp, humidity, pressure) VALUES(" +
+                    "\""+city+"\","
+                    + latitude + ","
+                    + longitude + ","
+                    +this.temp+","
+                    +this.humidity+","
+                    +this.pressure+ ")";
+
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.close();
+        }catch(Exception e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
 }

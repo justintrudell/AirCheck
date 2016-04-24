@@ -78,9 +78,12 @@ public class DataAccessObject {
     public static void createCities() throws Exception {
         String sql = "CREATE TABLE IF NOT EXISTS Cities (" +
                 "city text PRIMARY KEY, " +
-                "latitude double, " +
-                "longitude double, " +
-                "intensity double DEFAULT 0)";
+                "latitude double DEFAULT 0, " +
+                "longitude double DEFAULT 0, " +
+                "intensity double DEFAULT 0, " +
+                "temp double DEFAULT 0, " +
+                "humidity double DEFAULT 0, " +
+                "pressure double DEFAULT 0)";
 
         c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
         stmt = c.createStatement();
@@ -97,9 +100,10 @@ public class DataAccessObject {
         JsonArray jarr = new JsonArray();
         while(rs.next()){
             JsonObject jobj = new JsonObject();
-            jobj.addProperty("longitude", rs.getString("longitude"));
-            jobj.addProperty("latitude", rs.getString("latitude"));
-            jobj.addProperty("weight", rs.getString("intensity"));
+            jobj.addProperty("longitude", rs.getDouble("longitude"));
+            jobj.addProperty("latitude", rs.getDouble("latitude"));
+            jobj.addProperty("temp", rs.getDouble("temp"));
+            jobj.addProperty("weight", rs.getDouble("intensity"));
             jarr.add(jobj);
         }
         rs.close();

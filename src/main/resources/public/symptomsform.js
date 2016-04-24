@@ -1,4 +1,4 @@
-var map;
+var map, sympmap, tempmap;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -42,7 +42,7 @@ function changeOpacity() {
 
 $(document).ready(function(){
 
-      function test(){
+      function getOp(){
         $.ajax("http://localhost:4567/cityJSON", {
             success: function(data) {
                 ret = []
@@ -50,30 +50,45 @@ $(document).ready(function(){
                     ret.push({
                         location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight'] / 100
                     })
-                console.log("visualizing");
-
                 }
-                new google.maps.visualization.HeatmapLayer({
+                sympmap = new google.maps.visualization.HeatmapLayer({
                                         data: ret,
                                         map: map,
                                         radius: 60,
-                                        maxIntensity: 1.0
-                                      });
-                new google.maps.visualization.HeatmapLayer({
-                                        data: ret,
-                                        map: map,
-                                        radius: 100,
-                                        maxIntensity: 0.4,
+                                        maxIntensity: 1.0,
                                         gradient: grad
                                       });
-
             }, error: function(){
                 console.log("error")
             }
         })
       }
 
-      test()
+      getOp()
+
+      function getWeather(){
+        $.ajax("http://localhost:4567/cityJSON", {
+            success: function(data){
+                ret = []
+                for (i in data){
+                    ret.push({
+                        location: new google.maps.LatLng(data[i]['latitude'] + 0.005, data[i]['longitude'] + 0.005), weight: data[i]['temp'] / 40
+                    })
+                }
+                tempmap = new google.maps.visualization.HeatmapLayer({
+                                        data: ret,
+                                        map: map,
+                                        radius: 60,
+                                        maxIntensity: 1.0,
+                                      });
+            }, error: function(){
+                console.log("Error")
+            }
+
+        })
+      }
+
+      getWeather()
 
 
     $('#heatmap').click(function(){
@@ -96,6 +111,24 @@ $(document).ready(function(){
         }, 500);
         return false;
     });
+
+    $('#toggle_symptoms').click(function(){
+        if (sympmap.getMap() == null){
+            sympmap.setMap(map)
+        } else {
+            sympmap.setMap(null)
+        }
+    })
+
+
+    $('#toggle_temp').click(function(){
+            if (tempmap.getMap() == null){
+                tempmap.setMap(map)
+            } else {
+                tempmap.setMap(null)
+            }
+        })
+
 
 })
 

@@ -2,21 +2,7 @@ function setBgColor(c_quality) {
     const red = 100;
     const blue = 230;
     const divisions = 23
-//
-//    map = new GMaps({
-//            el: '#map',
-//            lat: 43.6532,
-//            lng: -79.3832,
-//            zoomControl : true,
-//            zoomControlOpt: {
-//                style : 'SMALL',
-//                position: 'TOP_LEFT'
-//            },
-//            panControl : false,
-//            streetViewControl : false,
-//            mapTypeControl: false,
-//            overviewMapControl: false
-//          });
+
     $("#air-quality-status").fadeOut(200);
     //Comment following line out if you hate color
     //c_quality = -1
@@ -40,25 +26,6 @@ function displayLocation(position) {
     if(document.getElementById("longitude") != null) document.getElementById("longitude").value = longitude;
     if(document.getElementById("latitude") != null) document.getElementById("latitude").value = latitude;
     var request = new XMLHttpRequest();
-
-//    map = new GMaps({
-//        el: '#map',
-//        lat: latitude,
-//        lng: longitude,
-//        zoomControl : true,
-//        zoomControlOpt: {
-//            style : 'SMALL',
-//            position: 'TOP_LEFT'
-//        },
-//        panControl : false,
-//        streetViewControl : false,
-//        mapTypeControl: false,
-//        overviewMapControl: false,
-//    });
-//    map.addMarker({
-//        lat: latitude,
-//        lng: longitude,
-//    });
 
     var method = 'GET';
     var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
@@ -88,7 +55,9 @@ function displayLocation(position) {
                         $.ajax({
                           url: window.location.href + "data",
                           data: {
-                            "city" : city
+                            "city" : city,
+                            "latitude": latitude,
+                            "longitude": longitude
                           },
                           type: "GET"
                         }).done(function(data) {

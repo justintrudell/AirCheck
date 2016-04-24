@@ -53,3 +53,12 @@
 .special {
     height: 500px;
 }
+
+.toggle {
+    text-align: center;
+}
+
+.toggle-btn{
+    margin-top: 30px;
+    margin-left: 12px;
+}

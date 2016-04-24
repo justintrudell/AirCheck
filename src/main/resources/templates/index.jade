@@ -1,7 +1,7 @@
 doctype html
 html(lang="en")
   head
-    title Aircheck
+    title Air Check
     //- meta(http-equiv='content-type', content='text/html; charset=utf-8')
     //- meta(name='description', content='')
     //- meta(name='keywords', content='')
@@ -53,6 +53,9 @@ html(lang="en")
                 h4.air-quality Air Quality:
                 #air-quality-status.air-quality
               div(id='map')
+        div(class='toggle')
+          a.button(id='toggle_symptoms', class='toggle-btn') Toggle Symptoms
+          a.button(id='toggle_temp', class='toggle-btn') Toggle Temperature
     // Two
     section#two.wrapper.style2
       header.major
