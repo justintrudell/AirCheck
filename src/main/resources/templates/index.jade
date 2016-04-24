@@ -31,6 +31,12 @@ html(lang="en")
         ul
           li
             a#home Home
+          li
+            a.heatmap Map
+          li
+            a.form Report
+          li
+            a.twit Twitter
     // Banner
     section#banner
       .inner
@@ -39,9 +45,9 @@ html(lang="en")
           | Allergies explained.
         ul.actions
           li
-            a.button.big.special#heatmap View map
+            a.button.big.special.heatmap View map
           li
-            a.button.big#form Report
+            a.button.big.form Report
           li
             a.button.big(id='generateData') Generate User Data
     // One
@@ -68,62 +74,15 @@ html(lang="en")
         .12u
           section.special
             iframe#my_typeform(src='https://jerry117.typeform.com/to/UlrIrF')
-    // Footer
-    footer#footer
+    // Three
+    section#three.wrapper.style3
+      header.major
+        h2 Twitter updates
+        p Tweet @idk to include data
       .container
-        .row.double
-          .6u
-            .row.collapse-at-2
-              .6u
-                h3 Accumsan
-                ul.alt
-                  li
-                    a Nascetur nunc varius
-                  li
-                    a Vis faucibus sed tempor
-                  li
-                    a Massa amet lobortis vel
-                  li
-                    a Nascetur nunc varius
-              .6u
-                h3 Faucibus
-                ul.alt
-                  li
-                    a Nascetur nunc varius
-                  li
-                    a Vis faucibus sed tempor
-                  li
-                    a Massa amet lobortis vel
-                  li
-                    a Nascetur nunc varius
-          .6u
-            h2 Aliquam Interdum
-            p
-              | Blandit nunc tempor lobortis nunc non. Mi accumsan. Justo aliquet massa adipiscing cubilia eu accumsan id. Arcu accumsan faucibus vis ultricies adipiscing ornare ut. Mi accumsan justo aliquet.
-            ul.icons
-              li
-                a.icon.fa-twitter
-                  span.label Twitter
-              li
-                a.icon.fa-facebook
-                  span.label Facebook
-              li
-                a.icon.fa-instagram
-                  span.label Instagram
-              li
-                a.icon.fa-linkedin
-                  span.label LinkedIn
-              li
-                a.icon.fa-pinterest
-                  span.label Pinterest
-        ul.copyright
-          li � Untitled. All rights reserved.
-          li
-            | Design: 
-            a(href='http://templated.co') TEMPLATED
-          li
-            | Images: 
-            a(href='http://unsplash.com') Unsplash
+        .12u
+          section.special
+            #twitter
     script(type='text/javascript', src='https://code.jquery.com/jquery-git.min.js')
     script(type='text/javascript', src='symptomsform.js')
     script(type='text/javascript', src='aircheckscript.js')
