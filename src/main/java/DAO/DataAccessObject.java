@@ -111,8 +111,8 @@ public class DataAccessObject {
             if(rs.getDouble("intensity") > 150d)
                 try{
                     SendTweet(rs.getDouble("intensity"), GetLocation.CoordsToCity(rs.getDouble("longitude"), rs.getDouble("latitude")));
-                } catch (TwitterException e){
-                    System.out.println("lol");
+                } catch (Exception e){
+                    System.out.println("exception: " + e.getMessage());
                 }
 
             jarr.add(jobj);

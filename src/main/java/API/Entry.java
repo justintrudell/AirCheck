@@ -158,6 +158,10 @@ public class Entry {
             if(request.queryParams("lon") != null) {
                 longitude = Double.valueOf(request.queryParams("lon"));
             }
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+            }
             Request req = new Request.Builder().url("https://api.typeform.com/v1/form/UlrIrF?key=3c664b74af9b1aadf9d563ead04dd82c7932623e&completed=true").build();
             Response res = client.newCall(req).execute();
             JsonParser parser = new JsonParser();
@@ -249,7 +253,9 @@ public class Entry {
                         }
                     }
                 }
-
+                if(fields.contains("sick")) {
+                    coughLevel += 5;
+                }
                 int howIsBreath = 0;
                 if(fields.contains("breath")) {
                     howIsBreath = 5;
