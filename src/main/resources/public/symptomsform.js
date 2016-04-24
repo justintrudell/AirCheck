@@ -1,4 +1,4 @@
-var map;
+var map, sympmap, tempmap;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -51,11 +51,12 @@ $(document).ready(function(){
                         location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight'] / 100
                     })
                 }
-                new google.maps.visualization.HeatmapLayer({
+                sympmap = new google.maps.visualization.HeatmapLayer({
                                         data: ret,
                                         map: map,
                                         radius: 60,
-                                        maxIntensity: 1.0
+                                        maxIntensity: 1.0,
+                                        gradient: grad
                                       });
             }, error: function(){
                 console.log("error")
@@ -66,19 +67,19 @@ $(document).ready(function(){
       getOp()
 
       function getWeather(){
-        $.ajax("http://localhost:4567/getWeather", {
+        $.ajax("http://localhost:4567/cityJSON", {
             success: function(data){
                 ret = []
                 for (i in data){
                     ret.push({
-                        location: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), weight: data[i]['weight'] / 100
+                        location: new google.maps.LatLng(data[i]['latitude'] + 0.005, data[i]['longitude'] + 0.005), weight: data[i]['temp'] / 40
                     })
                 }
-                new google.maps.visualization.HeatmapLayer({
+                tempmap = new google.maps.visualization.HeatmapLayer({
                                         data: ret,
                                         map: map,
                                         radius: 60,
-                                        maxIntensity: 1.0
+                                        maxIntensity: 1.0,
                                       });
             }, error: function(){
                 console.log("Error")
@@ -87,6 +88,8 @@ $(document).ready(function(){
         })
       }
 
+      getWeather()
+
 
     $('#get_started').click(function(){
         $('html, body').animate({
@@ -94,6 +97,24 @@ $(document).ready(function(){
         }, 500);
         return false;
     });
+
+
+    $('#toggle_symptoms').click(function(){
+        if (sympmap.getMap() == null){
+            sympmap.setMap(map)
+        } else {
+            sympmap.setMap(null)
+        }
+    })
+
+
+    $('#toggle_temp').click(function(){
+            if (tempmap.getMap() == null){
+                tempmap.setMap(map)
+            } else {
+                tempmap.setMap(null)
+            }
+        })
 
 
 })

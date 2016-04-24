@@ -126,6 +126,8 @@ public class Entry {
             return DataAccessObject.processCities();
         }, new JsonTransformer());
 
+
+
     }
 
     private static void RunTwitterStream() throws Exception {
