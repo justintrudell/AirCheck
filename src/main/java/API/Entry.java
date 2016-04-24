@@ -282,6 +282,15 @@ public class Entry {
                 UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing,
                         noseBlock, itchyEyes, city, _longitude, _latitude);
                 feels.Save();
+                try{
+                    Weather weather = GetWeather.getWeather(city);
+                    weather.save(city, _latitude, _longitude);
+                } catch(Exception e)
+                {
+                    System.out.println("lol");
+                }
+
+
             }
 
             @Override
