@@ -26,7 +26,7 @@ var grad = [
 'rgba(63, 0, 91, 1)',
 'rgba(127, 0, 63, 1)',
 'rgba(191, 0, 31, 1)',
-'rgba(255, 0, 0, 1)'
+'rgba(255, 0, 255, 1)'
 ]
 
 
@@ -54,9 +54,10 @@ $(document).ready(function(){
                 sympmap = new google.maps.visualization.HeatmapLayer({
                                         data: ret,
                                         map: map,
-                                        radius: 60,
+                                        radius: 50,
                                         maxIntensity: 1.0,
-                                        gradient: grad
+                                        gradient: grad,
+                                        opacity: 0.4
                                       });
             }, error: function(){
                 console.log("error")
@@ -78,7 +79,7 @@ $(document).ready(function(){
                 tempmap = new google.maps.visualization.HeatmapLayer({
                                         data: ret,
                                         map: map,
-                                        radius: 60,
+                                        radius: 70,
                                         maxIntensity: 1.0,
                                       });
             }, error: function(){
