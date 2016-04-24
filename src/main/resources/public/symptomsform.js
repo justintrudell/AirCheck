@@ -76,13 +76,26 @@ $(document).ready(function(){
       test()
 
 
-    $('#get_started').click(function(){
+    $('#heatmap').click(function(){
         $('html, body').animate({
-            scrollTop: $( $.attr(this, 'href') ).offset().top
+            scrollTop: $('#one').offset().top
         }, 500);
         return false;
     });
 
+    $('#home').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#top').offset().top
+        }, 500);
+        return false;
+    });
+
+    $('#form').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#two').offset().top
+        }, 500);
+        return false;
+    });
 
 })
 

@@ -34,7 +34,7 @@ function setBgColor(c_quality) {
 }
 
 function displayLocation(position) {
-    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude})
+    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
     var latitude = position.coords.latitude.toFixed(3);
     var longitude = position.coords.longitude.toFixed(3);
     if(document.getElementById("longitude") != null) document.getElementById("longitude").value = longitude;

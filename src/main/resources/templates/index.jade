@@ -1,7 +1,7 @@
 doctype html
 html(lang="en")
   head
-    title Ion by TEMPLATED
+    title Aircheck
     //- meta(http-equiv='content-type', content='text/html; charset=utf-8')
     //- meta(name='description', content='')
     //- meta(name='keywords', content='')
@@ -29,7 +29,7 @@ html(lang="en")
       nav#nav
         ul
           li
-            a(href='/') Home
+            a#home Home
     // Banner
     section#banner
       .inner
@@ -38,7 +38,9 @@ html(lang="en")
           | Allergies explained.
         ul.actions
           li
-            a.button.big.special(id='get_started') Get Started
+            a.button.big.special#heatmap View map
+          li
+            a.button.big#form Report
     // One
     section#one.wrapper.style1
       header.major

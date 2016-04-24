@@ -23,6 +23,10 @@
     margin-left: 25px
 }
 
+#banner {
+    background-image: url(banner.jpg)
+}
+
 .air-quality {
     vertical-align: middle;
     display: inline-block;
