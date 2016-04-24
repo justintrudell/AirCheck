@@ -22,6 +22,7 @@ html(lang="en")
     link(href='style.css', rel='stylesheet')
 
   body#top
+    div(class='se-pre-con')
     // Header
     header#header.skel-layers-fixed
       h1
@@ -41,6 +42,8 @@ html(lang="en")
             a.button.big.special#heatmap View map
           li
             a.button.big#form Report
+          li
+            a.button.big(id='generateData') Generate User Data
     // One
     section#one.wrapper.style1
       header.major

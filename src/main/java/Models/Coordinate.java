@@ -5,9 +5,9 @@ package Models;
  */
 public class Coordinate {
 
-    public Coordinate(double longitude, double latitude) {
-        this.longitude = longitude;
+    public Coordinate(double latitude, double longitude) {
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     private double longitude;

@@ -1,5 +1,8 @@
 package DAO;
 
+import API.AirCheckTweeter;
+import API.AirCheckUser;
+import API.GetLocation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -104,11 +107,18 @@ public class DataAccessObject {
             jobj.addProperty("latitude", rs.getDouble("latitude"));
             jobj.addProperty("temp", rs.getDouble("temp"));
             jobj.addProperty("weight", rs.getDouble("intensity"));
+            if(rs.getDouble("intensity") > 1000d)
+                SendTweet(rs.getDouble("intensity"), GetLocation.CoordsToCity(rs.getDouble("longitude"), rs.getDouble("latitude")));
             jarr.add(jobj);
         }
         rs.close();
         stmt.close();
         c.close();
         return jarr;
+    }
+
+    private static void SendTweet(double intensity, String city) throws Exception {
+        AirCheckTweeter.TweetMessage(String.format
+                ("NOTICE: %s is experiencing frequent reports of poor air quality. Stay indoors if at all possible.", city));
     }
 }

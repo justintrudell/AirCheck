@@ -18,6 +18,7 @@ import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import twitter4j.*;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -119,10 +120,10 @@ public class Entry {
             return new ModelAndView(map, "user_view");
         }, new JadeTemplateEngine());
 
-        get("/generateUsers", (request, response) -> {
+        get("/generateUserData", (request, response) -> {
+            DataGeneration.GenerateData(50);
+            System.out.println("Generated DATA!");
             response.redirect("/");
-            DataGeneration g = new DataGeneration();
-            g.GenerateData(1000);
             return null;
         });
 
@@ -334,6 +335,15 @@ public class Entry {
                 UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing,
                         noseBlock, itchyEyes, city, _longitude, _latitude);
                 feels.Save();
+                try{
+                    Weather weather = GetWeather.getWeather(city);
+                    weather.save(city, _latitude, _longitude);
+                } catch(Exception e)
+                {
+                    System.out.println("lol");
+                }
+
+
             }
 
             @Override
