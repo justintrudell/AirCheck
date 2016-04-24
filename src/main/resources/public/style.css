@@ -76,3 +76,10 @@ no-js #loader { display: none;  }
 	background: url(template_tpm.gif) center no-repeat #fff;
 }
 
+#twitter-widget-0 {
+      width: 40% !important;
+}
+
+#twitter-widget-1 {
+      width: 40% !important;
+}
