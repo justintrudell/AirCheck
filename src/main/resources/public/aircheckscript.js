@@ -62,6 +62,7 @@ function displayLocation(position) {
                           type: "GET"
                         }).done(function(data) {
                             setBgColor(data.quality);
+                            $(".se-pre-con").fadeOut("slow");;
                         });
                     }
                 }
