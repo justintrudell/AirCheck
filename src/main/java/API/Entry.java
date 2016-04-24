@@ -18,7 +18,7 @@ import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import twitter4j.*;
 
-import javax.xml.crypto.Data;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,6 +33,8 @@ import static spark.Spark.staticFileLocation;
  */
 public class Entry {
 
+    private static final File FAVICON_PATH = new File("src/test/resources/spark/favicon.png");
+
     static OkHttpClient client = new OkHttpClient();
 
     public static void main(String[] args) throws Exception {
@@ -45,6 +47,9 @@ public class Entry {
             RunTwitterStream();
         }
         catch(Exception e) {  }
+
+
+
 
         get("/", (req, res) -> new ModelAndView(map, "index"), new JadeTemplateEngine());
 
