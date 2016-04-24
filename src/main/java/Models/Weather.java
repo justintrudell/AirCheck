@@ -82,7 +82,7 @@ public class Weather {
                     +this.temp+","
                     +this.humidity+","
                     +this.pressure+ ", "
-                    +intensity+")";
+                        +intensity+")";
 
             System.out.println(sql);
             stmt.executeUpdate(sql);

@@ -73,14 +73,14 @@ $(document).ready(function(){
                 ret = []
                 for (i in data){
                     ret.push({
-                        location: new google.maps.LatLng(data[i]['latitude'] + 0.005, data[i]['longitude'] + 0.005), weight: data[i]['temp'] / 40
+                        location: new google.maps.LatLng(data[i]['latitude'] + 0.005, data[i]['longitude'] + 0.005), weight: data[i]['temp'] / 10
                     })
                 }
                 tempmap = new google.maps.visualization.HeatmapLayer({
                                         data: ret,
                                         map: map,
-                                        radius: 70,
-                                        maxIntensity: 1.0,
+                                        radius: 60,
+                                        maxIntensity: 1.5,
                                       });
             }, error: function(){
                 console.log("Error")
