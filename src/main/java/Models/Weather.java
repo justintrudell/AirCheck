@@ -2,6 +2,7 @@ package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
@@ -68,16 +69,27 @@ public class Weather {
         try{
             Connection c = DriverManager.getConnection("jdbc:sqlite:userEntries.db");
             Statement stmt = c.createStatement();
-            String sql= "INSERT OR REPLACE INTO Cities (city, latitude, longitude, temp, humidity, pressure) VALUES(" +
+
+            String sql = "select intensity from Cities where city = \"" + city + "\"";
+            ResultSet rs = stmt.executeQuery(sql);
+            double intensity = rs.next()? rs.getDouble("intensity"): 0;
+
+
+            sql= "INSERT OR REPLACE INTO Cities (city, latitude, longitude, temp, humidity, pressure, intensity) VALUES(" +
                     "\""+city+"\","
                     + latitude + ","
                     + longitude + ","
                     +this.temp+","
                     +this.humidity+","
-                    +this.pressure+ ")";
+                    +this.pressure+ ", "
+                    +intensity+")";
 
             System.out.println(sql);
             stmt.executeUpdate(sql);
+
+
+
+
             stmt.close();
             c.close();
         }catch(Exception e){
