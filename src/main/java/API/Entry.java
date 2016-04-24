@@ -281,9 +281,9 @@ public class Entry {
                 }
 
                 int wheezing = 0;
-                if(fields.contains("wheezing")) {
+                if(fields.contains("wheez")) {
                     wheezing = 5;
-                    int i = fields.indexOf("wheezing");
+                    int i = fields.indexOf("wheez");
                     if(i > 0)
                     {
                         for(String s : AirCheckConstants.seriousSnynonyms) {
@@ -306,9 +306,9 @@ public class Entry {
                 }
 
                 int sneezing = 0;
-                if(fields.contains("sneezing")) {
+                if(fields.contains("sneez")) {
                     sneezing = 5;
-                    int i = fields.indexOf("sneezing");
+                    int i = fields.indexOf("sneez");
                     if(i > 0)
                     {
                         for(String s : AirCheckConstants.seriousSnynonyms) {
@@ -331,12 +331,12 @@ public class Entry {
                 }
 
                 boolean noseBlock = false;
-                if(fields.contains("nose") && fields.contains("block")) {
+                if(fields.contains("nose") || fields.contains("congest") || fields.contains("sinus") || fields.contains("runny")) {
                     noseBlock = true;
                 }
 
                 boolean itchyEyes = false;
-                if(fields.contains("itchy") && fields.contains("eyes")) {
+                if(fields.contains("itchy") || fields.contains("eyes")) {
                     itchyEyes = true;
                 }
                 UserFeelings feels = new UserFeelings(coughLevel, howIsBreath, wheezing, sneezing,
