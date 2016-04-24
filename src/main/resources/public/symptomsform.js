@@ -92,7 +92,7 @@ $(document).ready(function(){
       getWeather()
 
 
-    $('#heatmap').click(function(){
+    $('.heatmap').click(function(){
         $('html, body').animate({
             scrollTop: $('#one').offset().top
         }, 500);
@@ -106,12 +106,20 @@ $(document).ready(function(){
         return false;
     });
 
-    $('#form').click(function(){
+    $('.form').click(function(){
         $('html, body').animate({
             scrollTop: $('#two').offset().top
         }, 500);
         return false;
     });
+
+    $('.twit').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#three').offset().top
+        }, 500);
+        return false;
+    });
+
 
     $('#toggle_symptoms').click(function(){
         if (sympmap.getMap() == null){
